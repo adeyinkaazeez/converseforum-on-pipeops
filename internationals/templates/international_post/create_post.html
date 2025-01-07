@@ -1,0 +1,57 @@
+{% extends "mybase2.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #id_title,
+    #id_tags,
+    #id_news_image,
+    #id_news_image_two,
+	#id_news_image_three,
+	#id_news_image_four,
+    #id_caption,
+	#id_caption_two,
+	#id_caption_three,
+	#id_caption_four,
+    #id_body {
+      margin-bottom: 5px;
+      width: 100%;
+    }
+
+    .helptext {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="newPost">
+    <h1>Post on International News Section</h1>
+<ul style="list-style-type:square">
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Use this Form To create your Post. A Text Editor is expected to display for Editing. If not, refresh the page to get the Text Editor Displayed</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">There are four image upload buttons and their caption. The first is required while others are optional. Use them to add more image to the body of your post instead of the image upload icon in the text editor</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">You can use the caption to give detailed description of your image especially the other three images</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Do not Post hate speech on converseForums</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Do not Defame any character</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Remember that you are solely responsible for any post published by you</li>
+</ul>
+<br><br>
+    <form method='POST' enctype="multipart/form-data" class='post-form' style="margin:10px;">
+      {% csrf_token %}
+      {{form.media}}
+      {{form.as_p}}
+      <input type='Submit' class="btn btn-primary" value="submit">
+    </form>
+  </div>
+
+
+  {% endblock %}
+</body>
+
+</html>

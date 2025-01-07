@@ -1,0 +1,54 @@
+{% extends  "mybase2.html" %}
+{% block content %}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+
+ <style>
+    #id_first_name, #id_last_name, #id_username, #id_email, #id_password1, #id_password2 {
+	 width:100%
+	 }
+  #id_username_helptext, #id_email_helptext, #id_password1_helptext, #id_password2_helptext {
+    color:green;
+	}
+  li {
+    color:red;
+	}
+</style>
+</head>
+<body id="Body" hx-boost="true">
+    <div class="content-section"  style="margin:10px">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                {{ form.as_p }}
+            </fieldset>
+
+            By registering, you accept the Terms of Service and Privacy Notice
+
+            <div class="form-group">
+                <button class="btn btn-active btn-primary " type="submit">Sign Up</button>
+            </div>
+        </form><br>
+		<i>Or sign-up with any of these social accounts</i><br>
+			<b><a class="btn btn-active btn-primary" style="border:2px solid blue; background-color:blue; color:white; text-decoration:none" href="{% url "social:begin" "facebook" %}">
+              Facebook
+            </a></b>
+			
+			
+			
+			<b><a class="btn btn-active btn-primary" style="border:2px solid red; background-color:red; color:white; text-decoration:none" href="{% url "social:begin" "google-oauth2" %}">
+			 Google
+             </a></b>
+			
+			<b><a class="btn btn-active btn-primary" style="border:2px solid black; background-color:black; color:white; text-decoration:none" href="{% url "social:begin" "twitter" %}">
+			 X
+             </a></b>
+			</br><br>
+        
+    </div>
+</body>
+</html>
+{% endblock content %}

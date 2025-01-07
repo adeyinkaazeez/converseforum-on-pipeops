@@ -1,0 +1,42 @@
+{% load event_tags %}
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+   {{ form.media }} 
+  <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+   </script>
+ 
+</head>
+
+
+<body>
+ 
+ 
+ {% if comment.edited %}
+ <div id="edited-comment">
+  <p style="margin-left:31px">{{comment.body.html|markdown}}</p>
+   <i><p style="margin-left: 0px; color:red;"> This Comment has been Edited  {{ comment.edited_date|timesince }} ago</p></i>
+  	{% if request.user == comment.name %}
+  <button class="btn  btn-sm" hx-get="{% url 'events:edit-comment' comment.pk %}" hx-target="#edited-comment" hx-swap="outerHTML"  hx-push-url="true" >Edit</button>
+	{% else %}
+	<span></span>
+	{% endif %}
+ </div>
+
+   {% else %} 
+ 
+<div style="margin-bottom:100px">
+<form method="post" action="{% url 'events:edit-comment' comment.pk %}" enctype='multipart/form-data' hx-boost="true" id="edit-form">  
+
+    {{ form.as_p }}  
+    {% csrf_token %}  
+    <input type="submit" value="Add comment" class="btn btn primary" style="margin:5px"  >
+	<span ><a class="btn  btn-sm" href="javascript:history.go(-0)" hx-boost="true">cancel</a></span>
+</form>
+
+</div>
+{% endif %}

@@ -1,0 +1,74 @@
+
+{% load static %}
+{% block content %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+   {{ form.media }} 
+  <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+   </script>
+ 
+</head>
+
+
+<body>
+ 
+ 
+ {% if comment %}
+ <div id="comment_confirm_form">
+  <p style="color:green">Congratulations, your comment has been added! Thanks</p>
+  <button class="btn btn-active " hx-get="{% url 'newss:post_comment' post.id %}"
+          hx-target="this"
+		  hx-swap="outerHTML">
+		  Comment Again
+   </button>
+    {% with post.politics_comments.count as total_comments %}
+		 
+            <h3 class="mt-5">
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+            </h3>
+			
+        {% endwith %}
+	
+		
+      
+        {% if not post.politics_comments.all %}
+            No comments yet
+        
+        {% else %}
+		      
+            {% for comment in post.get_comments %}
+          
+								
+			  <p>  {% include 'news_comment/comment.html' with comment=comment %}</p>
+			</div>  
+			
+            {% endfor %}
+		
+        {% endif %}
+    </div>   
+  <div >
+   {% else %} 
+   
+    <form  id="forms" hx-post="{% url 'newss:post_comment' post.id %}" enctype="multipart/form-data" hx-target="#NewComment" hx-swap="innerHTML" hx-trigger="submit" hx-on::after-request="this.reset()">
+	      {% csrf_token %}
+		  
+		  {{ widget.attrs.class }}
+		<h1>Add comment</h1> 
+        {{ form.as_p }}         
+     <button class="btn btn-active btn-primary" type="submit"  id="editing">Send comment</button>
+       <span ><a class="btn  btn-sm" href="javascript:history.go(-0)" hx-boost="true">cancel</a></span>
+    </form>
+ </div>	
+  {% endif %} 
+ 
+ 
+  
+ {% endblock %}
+ 
+ </body>
+ 
+ </html>

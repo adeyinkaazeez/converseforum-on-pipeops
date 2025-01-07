@@ -1,0 +1,23 @@
+{% if business_posts.has_other_pages %}
+ <ul class="pagination">
+  {% if business_posts.has_previous %}
+   <li><a href="?page = {{business_posts.previouspage_number}}&laguo;</a></li>
+  {% else %}
+  <li class="disabled"><span>&laguo;</span></li>
+  {% endif %}
+  {% for i in business_posts.paginator.page_range %}
+   {% if business_posts.number == i %}
+    <li class="active"><span>{{i}}<span class="sr-only">(current)</span></span></li>
+	
+	{% else %}
+	<li><a href="?page={{i}}">{{i}}</a></li>
+	{% endif %}
+	{% endfor %}
+   {% if business_posts.has_next %}
+    <li><a href="?page={{business_posts.next_page_number}}">&raquo; </a></li>
+	
+	{% else %}
+	 <li class="disabled"><span>&raquo;</span></li>
+	 {% endif %}
+ </ul>
+{% endif %}

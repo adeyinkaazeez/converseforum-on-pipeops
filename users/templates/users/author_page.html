@@ -1,0 +1,96 @@
+{% extends "mybase2.html" %}
+{% load static %}
+{% load hitcount_tags %}
+
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ #more {display:none;}
+</style>
+
+ <script>
+  function myFunction(){
+    
+	if(dots.style.display ==="none" || dots.style.display ===''){
+	  
+	   document.getElementById("more").style.display ="none";
+	  document.getElementById("dots").style.display="inline";
+	  document.getElementById("myBtn").innerHTML = "Read more";
+	 
+	  }else{
+	    document.getElementById("more").style.display="inline";
+	     document.getElementById("dots").style.display="none";
+	    document.getElementById("myBtn").innerHTML="Read less";
+	     
+		 
+	 
+	  }
+	 }
+	 
+  
+ </script>
+ 
+
+</head>
+<body >
+<a class="btn  btn-sm" href="javascript:history.go(-1)" hx-boost="true" style="margin:5px"> <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-arrow-left" aria-hidden="true"></i> </span></a>
+
+  <div class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-gray shadow-xl rounded-lg text-white-900" >
+   <div class="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full " style=" margin-left:auto; margin-right:auto; width:auto">
+    <img class="object-cover object-center h-10" src="{{  author.profile.photo.url }}" alt="{{author.get_full_name}}" style="height:120px; width:120px">
+   </div>
+   <div class="text-center mt-2">
+   <h2 class="font-semibold" style="font-family:cursive; color:blue; font-size:25px"><b>{{author.get_full_name}}</b></h2>
+   <p class="text-gray -500" style="font-family:cursive; color:blue; font-size:20px">{{user.profile.about}}</p>
+    <p class="text-gray -500" style="font-family:cursive; color:blue; font-size:20px">{{user.profile.date_of_birth}}</p>
+  </div>
+  <div style="text-align:center">
+    <b><i class="fa fa-map-marker" aria-hidden="true" style="color:blue"></i></b>: <span style="color:black">{{author.profile.location}}</span>
+	
+    <div style="color:blue"><b>Date Joined</b>: <span style="color:black">{{author.date_joined|date }}</span></div>
+   
+    <div style="color:blue"><b>Last Seen</b>: <span style="color:black">{{author.last_login}}</span></div>
+  </div>
+  
+ <div class="p-4 border-t mx-8 mt-2" style="margin-left:80px">
+  {% include "users/partials/followers.html" %} 
+ </div>
+  <div id="chat"></div>
+</div>
+
+{% for post in all_queryset_post %}
+ <div class="mx-auto max-w-wd overflow-hidden rounded-lg bg-white shadow" style="margin-bottom:4px">
+  <ul class="divide-y divide-gray-100 py-2 px-4">
+   <li class="flex py-4">
+    <div  style="margin-right:5px; margin-top:5px; width:500px; height:auto">
+	 <img class="rounded-lg" id="myimg" src="{{ post.news_image.url }}"  />
+	</div>
+    <div class="mr-1 flex-2" style="margin-right:-15px";>
+	 <h4 style="width:150px; color:#de6581" class="text-lg font-medium text-gray-900" ><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+	 <div class="mt-1 text-sm text-gray-400"><span><a  style="color:blue"class="name" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a></span> . <time>{{ post.publish }}</time></div>
+	 
+	</div>
+	
+   </li>
+  </ul>
+</div>
+{% endfor %}
+<!--{% include "pagination.html" with page=posts %}-->
+ <p >{% include "pagination/pagination.html" with page=all_queryset_post %} </p>
+ 
+   
+   
+
+    
+	
+	
+
+  {% endblock content %}
+  
+</body>
+
+</html>

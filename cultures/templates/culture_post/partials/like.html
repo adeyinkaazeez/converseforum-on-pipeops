@@ -1,0 +1,41 @@
+<div class="list-group list-group-horizontal btn-group" id='LikesArea' role="group">
+ 
+  {% if request.user in post.likes.all %}
+  
+ 
+  <p  class="indicator" ><button  class="btn  disabled"  style="color:white; background-color:blue;width:100px; font-size:10px; ">Endorsed </button>
+   {% else %}
+  
+   <p class="indicator" ><button  class="btn  disabled"  style="color:white; background-color:silver; font-size:10px; width:100px; "> Endorse </button>
+   {% endif %}
+  <button 
+   style="position:relative; top:-3px; left:-40px"
+   hx-post="{% url 'cultures:post-like' post.id %}"
+   id = "LikeButton"
+   hx-target ="#LikesArea"                    
+   hx-swap = "outerHTML">
+   
+   {% if request.user in post.likes.all %}
+   <input type="checkbox" checked="checked" class="indicator checkbox [--chkbg:oklch(var(--a))] [--chkfg:oklch(var(--p))]" style="position:relative; top:7px; left:16px; width:19px" />
+   <span class="badge badge-sm indicator-item" style="color:green; position:relative; left:12px; top:9px;">{{post.likes.count}}  </span>
+	   
+   {% else %}
+   
+    <input type="checkbox" class="checkbox blank"  style="position:relative; top:9px; left:12px" />
+	{% with post.likes.count as count %}
+   {% if count < 1 %}
+   <span ></span>
+   {% else %}
+	 <span class="badge badge-sm indicator-item" style="color:green; position:relative; left:12px; top:7px;">{{count}}  </span>
+   {% endif %}
+   {% endwith %}   
+   {% endif %}
+  </button>
+ 
+</div>
+	 
+ <script>
+  document.body.addEventListener('htmx:configRequest', (e)=>{ 
+             e.detail.headers['X-CSRFToken'] = '{{csrf_token}}';
+			   })
+</script>  

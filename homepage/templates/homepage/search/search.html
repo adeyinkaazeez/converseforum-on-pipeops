@@ -1,0 +1,56 @@
+{% extends "mybase2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <title>Search Post</title>
+   <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
+   <style>
+    
+	h3 {
+	    font-size:24px;
+		margin-bottom:20px;
+		}
+	.htmx-indicator {
+	    display:inline-block;
+		margin-left:10px;
+		color:white;
+	}
+	.search-form {
+	 margin-top:-22px;
+	 
+	 position:relative;
+	 
+	 }
+	.form-control {
+	  width:100%;
+	  font-size:18px;
+	  padding:10px;
+	  border:5px solid black;
+	  border-radius:4px;
+	  }
+	 body { background:  linear-gradient(to right, #283048, #859398);}
+	</style>   
+ </head>
+ <body id="container">
+  <h3>
+   <i><span class="htmx-indicator">searching.......</span></i>
+  </h3>
+ <div style="margin-bottom:85%;">
+  <form class=" search-form">
+   {% csrf_token %}
+   <input class="form-control" type="search"
+    name = "search" placeholder="Begin Typing to Search Posts...."
+	hx-get ="/search/results/"
+	hx-trigger ="keyup changed, search"
+	hx-target = "#search-results"
+	hx-indicator=".htmx-indicator">
+  </form>
+   <div id="search-results" >
+    {% include "homepage/search/search_results.html" %}
+  </div>
+ </div> 
+ </body>
+</html>
+{% endblock %}	

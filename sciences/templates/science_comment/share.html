@@ -1,0 +1,36 @@
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %} 
+<head> 
+  <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-
+               L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous"></script>
+	<style>
+	input {
+	  margin-bottom:7px;}
+	</style>
+</head>
+ 
+    {% if sent %}    
+        <h1>E-mail successfully sent</h1>    
+        <p>      
+            "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.    
+        </p>
+         <button class="btn btn-success"><a style="text-decoration:none;" href="{{ post.get_absolute_url }}">OK</a></button>		
+    {% else %}    
+        <h1>Share "{{ post.title }}" by e-mail</h1>  
+      	<div hx-target="this" hx-swap="outerHTML">	
+        <form style="margin:20px" hx-post="{% url "sciences:post_share" post.id %}">
+                
+            {% csrf_token %}
+            {{ widget.attrs.class }}
+            {{ form.as_p }}  			
+            <button class="btn btn-active btn-primary" type="submit"  id="editing">Send e-mail</button> 
+             <span ><a class="btn  btn-sm" href="javascript:history.go(-0)" hx-boost="true">cancel</a></span>	 			
+        </form> 
+      </div>		
+    {% endif %} 
+{% endblock %}
+

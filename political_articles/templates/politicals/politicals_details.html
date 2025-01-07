@@ -1,0 +1,169 @@
+{% extends "mybase2.html" %}
+{% load happening_tags %}
+{% load static %}
+{% load hitcount_tags %}
+{% load social_share %}
+
+
+{% block content %}
+  <!DOCTYPE HTML>
+  <head>
+  {{ form.media }}
+   <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+	</script>
+	
+       
+</head>
+<body style="body:100%; margin-left:2px;" id="body">
+<a class="btn  btn-sm" href="javascript:history.go(-1)" hx-boost="true" > <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-arrow-left" aria-hidden="true"></i> </span></a>
+
+<div class="card w-96 bg-100 shadow-xl" style="width:100%">
+    <div class="card-body" id="post-body">
+      <h2 class="card-title">{{ post.title }}</h2>
+      {% if request.user == post.author %}
+      <p class="date">Published {{ post.publish }} by <a href="{% url 'my_activities' %}" class="name" style=" margin-left:-2px; text-decoration:underline; color:blue">{{ post.author }}</a></p>
+      {% else %}
+      <p class="date">Published {{ post.publish }} by <a href="{% url 'post_author' pk=post.author.pk %}" class="name" style="color:blue; margin-left:-2px"><i>{{ post.author }}</a></p>
+      {% endif %}
+       <hr>
+	   <br>
+        <figure class="px-10 pt-10">
+        <img src="{{ post.news_image.url }}"  alt="" />
+      </figure>
+	  <figcaption>{{post.caption}}</figcaption>
+	   <br>
+       <p>{{ post.body|markdown }}</p><br>
+	  <figure class="px-10 pt-10">
+        <img src="{{ post.news_image_two.url }}"  alt="" />
+      </figure>
+	  <figcaption>{{post.caption_two}}</figcaption>
+	  <figure class="px-10 pt-10">
+        <img src="{{ post.news_image_three.url }}"  alt="" />
+      </figure>
+	  <figcaption>{{post.caption_three}}</figcaption>
+	  <figure class="px-10 pt-10">
+        <img src="{{ post.news_image_four.url }}"  alt=""/>
+      </figure>
+	  <figcaption>{{post.caption_four}}</figcaption>
+       {% if post.edited %}
+            
+       <p style="margin-left: 0px; color:grey;">  Edited {{ post.updated|timesince }} ago</p>
+            {% endif %}
+	   {% if request.user == post.author %}
+       {% with post.political_comments.count as total_comments %}
+       {% if total_comments > 0 %}
+    <div id="post-edit">
+      <p style="color:brown">Post not Editable because a user has commented on it</p>
+     {% else %}
+    <a class="btn btn-primary" href="{% url 'political_articles:edit_post' post.pk %}" >Edit Post </a>
+    {% endif %}
+    {% endwith %}
+    {% else %}
+    <span></span>
+    {% endif %}
+    </div>
+   </div>
+</div> 
+
+
+{% if user.is_authenticated %}
+<div id="main">
+<div class="mt-4 flex gap-2">
+<span class="inline-flex items-center gap-1   px-2 py-1 text-xs font-semibold text-blue-600">
+<details class="dropdown">
+  <summary class="btn m-1">Share</summary>
+   <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-15 p-2 shadow">
+    <li><button hx-get="{% url 'political_articles:post_share' post.id %}" hx-target="#main" hx-swap="outerHTML"><i class='fa fa-envelope' aria-hidden='true' style='color:red'></i></button> </li>
+	<li>{% post_to_facebook object_or_url "<i class='fa fa-facebook' aria-hidden='true' style='color:blue';'></i>" %}</li>
+    <li>{% post_to_whatsapp object_or_url "<i class='fa fa-whatsapp' aria-hidden='true' style='color:green; ';'></i>" %}</li>
+  </ul>
+ </details>
+ </span>
+<span class="inline-flex items-center gap-1   px-2 py-1 text-xs font-semibold text-blue-600">{% include "politicals/partials/like.html" %}</span>
+<span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span>
+</div>
+
+{% else %}
+<div class="mt-4 flex gap-2"  >
+ <span class="inline-flex items-center gap-1   px-2 py-1 text-xs font-semibold text-blue-600"><button class="btn btn-active btn-primary" ><a href="{% url "login" %}?next={{request.path}}"  hx-boost="true">Login to share </a></button></span>
+ <span class="inline-flex items-center gap-1   px-2 py-1 text-xs font-semibold text-blue-600" ><i class="fa fa-thumbs-up" style="font-size:12px; color:blue"></i> <span style="font-size:12px; color:blue">{{ post.likes.all.count }}</span></span>
+ <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span>
+</div>
+ {% endif %}
+</div>
+</div>
+<hr>
+
+<div class="card w-96 bg-100 shadow-xl" style="width:100%">
+  <div class="card-body">
+  <h2 class="card-title">Similar posts</h2>
+   
+  {% for post in similar_posts %}
+  <ul class="specialLink">
+    <li class="specialLink">  <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+  </ul>
+   {% empty %}
+      There are no similar posts yet.
+   {% endfor %}
+</div>
+</div>
+{% include 'politicals/partials/ranking.html' %}
+<br>
+  
+<hr>
+    
+        
+
+
+
+
+  
+   
+
+    <div  id="NewComment" >
+       <div id="commentingForm">
+       {% if user.is_authenticated %}
+	     <button class="btn btn-active btn-primary" hx-get="{% url 'political_articles:post_comment' post.id %}"hx-target="this" hx-swap="outerHTML" hx-push-url="true">Click to comment</button>
+	   {% else %}
+       <a class="btn btn-active btn-primary" href="{% url 'login' %}?next={{request.path}}">Login to comment on this post</a>
+     {% endif %}
+     </div>
+	 <hr>
+            {% with post.political_comments.count as total_comments %}
+            <h3 class="mt-5">
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+            </h3>
+			
+        {% endwith %}
+	
+		
+      
+        {% if not post.political_comments.all %}
+           <p>Be the first to comment on this post</p>
+        
+        {% else %}
+		      
+            {% for comment in all_comments %}
+          
+			<div style=" margin-bottom:3px;">					
+			  <p > {% include 'politicals_comment/comment.html' with comment=comment %}</p>
+			</div>
+			
+            {% endfor %}
+			
+        {% endif %}
+	 <!--{% include "pagination.html" with page=posts %}-->
+      <p >{% include "politicals_comment/pagination.html" with page=all_comments %} </p>
+	</div>
+
+
+{% endblock %}
+
+
+</body>
+
+
+
+

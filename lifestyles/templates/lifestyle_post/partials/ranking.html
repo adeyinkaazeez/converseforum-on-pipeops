@@ -1,0 +1,21 @@
+
+{% block content %}
+<style>
+ a.specialLink { color:blue}
+ a:hover {background-color:black}
+ ul {list-style-type:square}
+ 
+</style>
+<div class="card w-96 bg-100 shadow-xl" style="width:100%">
+ <div class="card-body">
+  <h2 class="card-title">Most Popular Lifestyle Posts</h2>
+   <ul class="specialLink" >
+   {% for post in most_viewed %}
+   <li class="card shadow" style="border:2px solid white; margin:5px; padding:5px">
+    <a class="specialLink" href="{{ post.get_absolute_url }}">
+     {{ post.title }}
+    </a>
+   </li>
+    {% endfor %}
+   </ul>
+   {% endblock %}

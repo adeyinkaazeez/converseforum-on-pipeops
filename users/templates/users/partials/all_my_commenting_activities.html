@@ -1,0 +1,43 @@
+
+
+
+
+
+
+
+
+ {% for comments in all_my_comment %}
+<div >
+ 	
+
+ <div class="mx-auto max-w-wd overflow-hidden rounded-lg bg-white shadow" style="margin-bottom:4px">
+  <ul class="divide-y divide-gray-100 py-2 px-4">
+   <li class="flex py-4">
+      <p class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">{{comments.section_name}}</p>
+    <div class="mr-1 flex-2" style="margin-right:-15px">
+	<i><p style="color:grey; font-size:12px">{{comments.created}}</p></i> 
+	 <h4 style="color:#de6581" class="text-lg font-medium text-gray-900" >{{ comments.post}}</h4>
+	 <p id="main2">{{comments.body}}</p>
+	</div>
+	
+   </li>
+  </ul>
+</div>
+
+{% endfor %}
+
+<div id="moreComments" >
+	{% if all_my_comment.has_next  %}
+    <button class="btn btn-primary" 
+      hx-get="{% url 'load_all_my_comments' %}?page={{all_my_comment.next_page_number }}"
+	  style="margin:5px"
+      hx-swap="outerHTML"
+      hx-target="#moreComments"
+    
+      >more
+     </button>
+   	 {% else %} 
+     <p style="color:red">End</p>	 
+     {% endif %} 
+	</div>
+	</div>

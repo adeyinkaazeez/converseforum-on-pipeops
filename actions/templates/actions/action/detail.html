@@ -1,0 +1,17 @@
+<div class="info">
+<p>
+
+ 
+<!--<h4 style="width:200px; color:#de6581" class="text-lg font-medium text-gray-900" >What's the Latest</h4>-->
+{% with user=action.author profile=action.author.profile %}
+ <div class=" card shadow hover:shadow-lg shadow-inner">
+ <i style="font-size:15px; color:grey">{{ action.created|timesince }} ago</i><br />
+  <span style="margin:3px; "><b><a href="{{ user.get_absolute_url }}" style="color:blue">{{ action.user.username }}</b></a> <b>{{ action.verb }}</b> {% if action.target %} {% with target=action.target %}<b><a href="{{ target.get_absolute_url }}" style="color:blue">{{ target|truncatewords_html:10  }}</b></a> </span></p>
+ </div>
+    {% endwith %}
+    {% endif %}
+
+</p>
+</div>
+</div>
+{% endwith %}

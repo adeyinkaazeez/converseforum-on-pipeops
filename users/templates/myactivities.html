@@ -1,0 +1,96 @@
+{% extends "mybase2.html" %}
+{% block title %}{% endblock %}
+{% load static %}
+{% load i18n static %}{% load postman_tags %}
+{% load business_article_tags %}
+{% load crime_tags %}
+{% load business_tags %}
+{% load notification_tags %}
+
+
+{% block content %}
+ <!DOCTYPE html>
+ <html lang="en">
+  <head>
+   <meta charset="UTF-8">
+   
+   
+	 <style>
+   #id_first_name,  #id_last_name, #id_email, #id_date_of_birth_month, #id_email, #id_date_of_birth_day, #id_email, #id_date_of_birth_year, #id_about,
+   #id_location, #id_photo, #save, #cancel, #id_body {
+    margin-bottom:10px;
+	font-size:15px;
+	width:100%;
+	}
+	
+
+     textarea  {
+     width:100%;
+    }
+ 
+</style>
+
+ 
+</head>
+
+
+<body  id="body" hx-boost="true">
+<a class="btn  btn-sm" href="javascript:history.go(-1)" hx-boost="true" style="margin:5px"> <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-arrow-left" aria-hidden="true"></i> </span></a>
+<br><br>
+ <div id="profile"  class="shadow"> 
+  <div class="grid grid-cols-6 gap-0 shadow" style="margin-top:-7px; margin-left:auto; margin-right:auto; width:auto" >
+  <div class="col-start-1 col-end-7..."  >
+   <div tabindex="0"  class="btn btn-ghost btn-circle avatar" style="width:100%; ">
+    <div class=" rounded-full" >
+     <img alt="{{ user.get_full_name}}" src="{{  user.profile.photo.url }}" />
+    </div>
+   </div>  
+	 
+  </div>
+</div>  
+ <div class="text-center mt-2">
+   <h2 class="font-semibold" style="font-family:cursive; color:blue; font-size:25px"><b>{{user.get_full_name}}</b></h2>
+   <p class="text-gray -500" style="font-family:cursive; color:blue; font-size:20px">{{user.profile.about}}</p>
+   <p class="text-gray -500" style="font-family:cursive; color:blue; font-size:20px">{{user.profile.date_of_birth}}</p>
+  </div>
+  <div style="text-align:center">
+    <b><i class="fa fa-map-marker" aria-hidden="true" style="color:blue"></i></b>: <span style="color:black">{{user.profile.location}}</span>
+	
+    <div style="color:blue"><b>My status</b>: <span style="color:black">{{user.status }}</span></div>
+	 <a  hx-get="{% url "edit" %}" hx-target="#profile" hx-swap="outerHTML" hx-push-url="true" class="btn btn-active btn-primary " style="margin-left:5px; margin-right:5px; margin-bottom:5px; margin-top:5px; width:95%">Edit profile</a><br><br>
+   
+    
+  </div>
+ </div>
+ <div style="background-color:white">
+  <h1 style="width:100px; background-color:blue; color:white; border:2px solid blue; margin:5px; padding:5px; width:150px">My Notifications</h1>
+   <p style="margin:3px">{% render_notifications using request.user.notifications.active|slice:':10'  %}</p>
+  
+   
+<hr>
+  <h1 style="width:100px; background-color:blue; color:white; border:2px solid blue; margin:5px; padding:5px">My Feeds</h1>
+     {% for action in actions %}
+	  <div style="background-color:white; border-bottom:1px solid silver; padding:5px">
+      {% include "actions/action/detail.html" %}
+    </div>
+       {% endfor %}	 
+	   
+	   
+	</div>
+     <br>  
+ </div>	 
+
+<h3 style="margin:5px; color:blue; font-family:Arial, Helvetica, sans-serif; font-size:16px ">My Posting History</h3><hr>
+ <p >{% include "users/partials/all_my_posting.html" %} </p>
+
+<br><br>
+ <h3 style="margin:5px; color:blue; font-family:Arial, Helvetica, sans-serif; font-size:16px ">My Commenting History</h3><hr>
+ <p >{% include "users/partials/all_my_commenting_activities.html" %} </p>
+{% endblock content %}
+
+   
+
+
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-
+               L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+	</script>
+</head>
+<body>
+
+ <div class="pagination" hx-target="this" hx-swap="outerHTML" hx-trigger="revealed">  
+  <span class="step-links">    
+    {% if business_posts.has_previous %}      
+      <a href="?page={{ business_posts.previous_page_number }}">Previous</a>    
+    {% endif %}
+
+  <span class="current">      
+    Page {{ business_posts.number }} of {{ business_posts.paginator.num_pages }}   
+  </span>    
+  {% if business_posts.has_next %}      
+    <a href="?page={{ business_posts.next_page_number }}">Next</a>    
+  {% endif %}  
+  </span> 
+</div>
+</body>
+</html>

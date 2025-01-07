@@ -1,0 +1,92 @@
+ {% extends "blog/base4.html" %}
+ {% load blog_tags %}
+{% block content %}
+
+<body style="padding-left: 5px;
+             padding-right:5px;">
+<div class="post-detail" style="border: 5px solid #cccccc; padding: 20px; 
+                                 width: 1000px; 
+                                 border-radius: 10px; 
+                                 -moz-border-radius: 10px; 
+                                 -webkit-border-radius: 10px;
+								  margin-top:17em;
+								  font-size:15px;
+								 ">  
+<h1 style="color:red">{{ post.title }}</h1> 
+ <p class="date">    Published {{ post.publish }} by {{ post.author }}  </p>  
+ <p  style="margin: 5px; padding: 5px; font-size:20%">
+   {{ post.body|markdown }} 
+ </p>
+</div> 
+
+</br>
+ 
+<div class="similsrpost" style="position: absolute;
+	                           right:20px;
+	                           top: 80%;">
+   <h2>Similar posts</h2>
+  {% for post in similar_posts %}
+    <p>  <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+   {% empty %}
+      There are no similar posts yet.
+   {% endfor %}
+</div>
+
+
+
+{% if user.is_authenticated %}
+
+<p ><a href="{% url "blog:post_share" post.id %}"> Share this post</a></p>
+
+{% include "blog/post/includes/comment_form.html" %}
+
+
+{% else %}
+   <p><a href="{% url "blog:login_page" %}">Login to share this post</a></p>
+   <p><a href="{% url "blog:login_page" %}">Login to comment on this post</a></p>
+
+{% endif %}
+
+ {% with comments.count as total_comments %}    
+    <h2>      
+      {{ total_comments }} comment{{ total_comments|pluralize }}    
+    </h2>  
+ {% endwith %} 
+ 
+ 
+ {% for comment in comments %}    
+    <div class="comment" style="border: 5px solid #cccccc; padding: 20px; 
+                                 width: 500px; 
+                                 border-radius: 10px; 
+                                 -moz-border-radius: 10px; 
+                                 -webkit-border-radius: 10px;
+								  margin-top:1em;
+								  margin-bottom:1em;
+								  font-size:15px;">
+       <p class="info">  
+          Comment 
+          {{ forloop.counter }} by {{ comment.name }},        {{ comment.created }}      
+      </p>      
+          {{ comment.body|linebreaks }}    
+    </div>  
+	
+	{% empty %}    
+    <p >There are no comments.</p>  
+ {% endfor %}
+
+</b>
+
+{% endblock %}
+
+</body>
+<style type="text/css">
+
+
+p {
+    font-size:15px;
+	}
+
+
+
+
+

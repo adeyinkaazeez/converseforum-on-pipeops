@@ -1,0 +1,32 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  
+  <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+   </script>
+ 
+</head>
+
+
+<body>
+
+
+ 
+  <div id="edit_confirm_form">
+  <p style="color:green">Congratulations, you have updated your profile! Thanks</p>
+  <button class="btn btn-active " hx-get="{% url 'my_activities'  %}"
+          hx-target="body"
+		  hx-swap="outerHTML">
+		  ok
+   </button>
+ </div>
+ 
+  {% endblock %}
+ 
+</body>
+</html>

@@ -1,0 +1,44 @@
+             {% with post.education_comments.count as total_comments %}
+		 
+            <h3 class="mt-5">
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+            </h3>
+			
+        {% endwith %}
+		
+		
+
+        {% if not post.education_comments.all %}
+            No comments yet
+        
+        {% else %}
+		      
+            {% for comment in post.get_comments %}
+           <div  style="border: 5px solid #cccccc;  
+                                  width:1250px;  
+                                 border-radius: 5px; 
+                                 -moz-border-radius: 10px; 
+                                 -webkit-border-radius: 10px;
+								  font-size:40px;
+								  ">
+								
+			  <p>  {% include 'education_comment/comment.html' with comment=comment %}</p>
+			</div>  
+			
+            {% endfor %}
+			
+        {% endif %}
+		
+		 <div id="EducationalComment">
+	{% if educational_comments.has_next  %}
+    <span style="font-size:40px"
+      hx-get="{% url 'educations:all_educational_comment_view' %}?page={{educational_comments.next_page_number }}"
+      hx-swap="beforeend"
+      hx-target="#EducationalComment"
+    
+      hx-trigger="revealed">
+     </span>
+   	 {% else %} 
+     <p style="color:red">End</p>	 
+     {% endif %} 
+	</div>

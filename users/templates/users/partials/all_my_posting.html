@@ -1,0 +1,38 @@
+
+
+
+
+
+{% for post in all_my_posting %}
+ <div class="mx-auto max-w-wd overflow-hidden rounded-lg bg-white shadow" style="margin-bottom:4px">
+  <ul class="divide-y divide-gray-100 py-2 px-4">
+   <li class="flex py-4">
+    <div  style="margin-right:5px; margin-top:5px; width:500px; height:auto">
+	 <img class="rounded-lg" id="myimg" src="{{ post.news_image.url }}"  />
+	</div>
+    <div class="mr-1 flex-2" style="margin-right:-15px";>
+	 <h4 style="width:150px; color:#de6581" class="text-lg font-medium text-gray-900" ><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+	 <div class="mt-1 text-sm text-gray-400"><span><a  style="color:blue"class="name" href="" >{{ post.author }}</a></span> . <time>{{ post.publish }}</time></div>
+	 
+	</div>
+	
+   </li>
+  </ul>
+</div>
+{% endfor %}
+
+<div id="morePosts" >
+	{% if all_my_posting.has_next  %}
+    <button class="btn btn-primary" 
+	  style="margin:5px"
+      hx-get="{% url 'load_all_my_posting' %}?page={{all_my_posting.next_page_number }}"
+      hx-swap="outerHTML"
+      hx-target="#morePosts"
+    
+      >more
+     </button>
+   	 {% else %} 
+     <p style="color:red">End</p>	 
+     {% endif %} 
+	</div>
+	</div>

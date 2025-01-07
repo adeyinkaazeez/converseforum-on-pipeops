@@ -1,0 +1,127 @@
+
+{% load  sport_tags %}
+{% load static %}
+
+
+
+{% block content %}  
+ <!DOCTYPE HTML>
+  <head>
+  {{ form.media }}
+  <style>
+   
+ 
+	.name {
+	   margin-top:-47px; margin-left:31px;}
+	  
+	  
+	button {
+	   margin-bottom:25px; margin-top:15px; font-size:30px;}
+	   }
+   </style>
+  </head>
+  <body>
+    <div class="ps-2" id="{{comment.id}}" >
+     		
+   
+		  <div  class="card w-98 bg-100 shadow hover:shadow-lg shadow-inner"   style="  border:2px solid black;  margin-bottom:5px ">
+		  {% if  comment.sport_parent%}
+			<div  id="comment-edits" >
+		   <div tabindex="0"  class="btn btn-ghost btn-circle avatar" style=" ">
+			<img  class="w-10 rounded-full" src="{{comment.sport_parent.name.profile.photo.url}}" style="margin:3px"/>
+		   </div>
+			<span><strong style="color:blue; position:relative; top:-30px; ">{{comment.sport_parent.name}}</strong></span>
+			<div style="position:relative; top:-30px; margin-left:50px; ">
+            <p class="w-50"> {{comment.sport_parent.body|markdown}}</p>
+			<figure class="px-10 pt-10">
+              <img src="{{ comment.sport_parent.comment_image_one.url }}"  alt="" style="height:150px"/>
+			  <img src="{{ comment.sport_parent.comment_image_two.url }}"  alt="" style="height:150px"/>
+            </figure>
+			
+		   </div>
+		    {% endif %}
+           </div>
+		    
+	   <div class="w-98  bg-neutral shadow-xl shadow hover:shadow-lg shadow-inner" style="  margin:5px;  border-radius:10px">
+         <div tabindex="0"  class="btn btn-ghost btn-circle avatar" style=" margin-top:-5px; ">
+           <div class="w-10 rounded-full">
+            <img alt="converse" src="{{ comment.name.profile.photo.url }}" />
+           </div>
+		   </div>
+		  
+		  <div class="name" style="margin-left:50px; color:white" >
+           <strong style="color:blue; ">{{comment.name}}</strong>
+		    
+            {% if  comment.sport_parent.name %} replied to <strong style="color:purple">{{comment.sport_parent.name}}</strong>  {% endif %}
+            <small class="text-muted">   <i> about {{ comment.created | timesince }} ago</i></small>
+			<div  style="color:white" id="comment-edits">
+			 <p>{{comment.body|markdown}}</p>
+			  <figure class="px-10 pt-10">
+                <img src="{{ comment.comment_image_one.url }}"  alt="" style="height:150px"/>
+			    <img src="{{ comment.comment_image_two.url }}"  alt="" style="height:150px"/>
+             </figure>
+			</div>
+		  
+		  
+		
+			
+			
+			   {%  if comment.edited %}
+			  <i><p style="margin-left: 0px; color:grey;"> Edited  {{ comment.edited_date|timesince }} ago</p></i>
+			 {% endif %}
+		
+		 
+	    </div>  
+			 
+		<div style="margin-left:50px">
+			{% if user.is_authenticated %}
+             {% if request.user not in comment.likes.all %}
+              <button hx-post="{% url 'sports:comment-like' post.pk comment.pk%}"  hx-swap="outerHTML" hx-target="this" class="remove-default-btn" ><b><i class="fa fa-thumbs-up" style="font-size:12px; color:white"></i> <span style="font-size:12px; color:white">{{ comment.likes.all.count }}</span></b></button>
+			{% else %}
+			  <button hx-post="{% url 'sports:comment-like' post.pk comment.pk%}"  hx-swap="outerHTML" hx-target="this" class="remove-default-btn" ><b><i class="fa fa-thumbs-up" style="font-size:12px; color:blue"></i> <span style="font-size:12px; color:blue">{{ comment.likes.all.count }}</span></b></button>
+			{% endif %}	
+              	
+            <span><button class="btn  btn-sm"  onclick="handleReply({{comment.id}})">Reply</button></span>
+			{% if request.user == comment.name %}
+		 
+			<span><button class="btn  btn-sm" hx-get="{% url 'sports:edit-comment'  comment.pk %}"  hx-swap="outerHTML" hx-target="this">Edit</button></span>
+		 
+		   {% else %}
+		   <span></span>
+		   {% endif %}
+			
+             {% endif %}
+		    
+			 <div id="reply-form-container-{{comment.id}}" style="display:none">
+            
+                <form method="post" action="{% url 'sports:reply' %}" class="mt-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value="{{post.id}}">
+                    <input type="hidden" name="parent" value="{{comment.id}}">
+                    <input type="hidden" name="post_url" value="{{post.get_absolute_url}}">
+
+
+                    {{ form.as_p }}  
+
+                    <div>
+                        <button type="button" onclick="handleCancel({{comment.id}})" class="btn btn-light border btn-sm" >Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm" >Submit</button>
+                    </div>
+                </form>
+            </div>
+		</div>
+		</div>
+        </div>
+		
+		 </div> 
+	  
+	
+           
+			 
+			 
+        </div>
+	   </div>
+	   </div>
+       	  
+{% endblock %}
+</body>

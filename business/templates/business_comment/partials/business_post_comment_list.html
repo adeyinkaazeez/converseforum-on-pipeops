@@ -1,0 +1,26 @@
+
+
+
+
+{% load static %}
+
+
+
+
+	
+	
+	
+	<div id="MoreComments">
+	{% if business_comments.has_next  %}
+    <button style="font-size:40px"
+      hx-get="{% url 'business:all_business_post_comment' post.id %}?page={{business_comments.next_page_number }}"
+      hx-swap="beforeend"
+      hx-target="#MoreComments"
+    
+      >Load More Button
+     </button>
+   	 {% else %} 
+     <p style="color:red">End</p>	 
+     {% endif %} 
+	</div>
+	</div>

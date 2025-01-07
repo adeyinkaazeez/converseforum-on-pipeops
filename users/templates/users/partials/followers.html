@@ -1,0 +1,38 @@
+<div class="list-group list-group-horizontal btn-group" id='following' role="group">
+  {% with total_followers=author.followers.count %}
+  {% if request.user not in author.followers.all %}
+  
+    <span class="count" style="margin:5px; border-radius:10px; border:2px solid white; padding:2px"><span class="total" style="margin:5px;">{{ total_followers }}</span>follower{{ total_followers|pluralize }}</span>
+    <a href="#"  class="btn btn-active btn-primary" style="margin:5px;width:100px">Follow</a>
+   {% else %}
+   <span class="count" style="margin:5px; border-radius:10px; border:2px solid white; padding:2px"><span class="total" style="margin:5px;">{{ total_followers }}</span>follower{{ total_followers|pluralize }}</span>
+    <a href="#"  class="btn btn-active btn-primary" style="margin:5px; width:100px">Following</a>
+   {% endif %}
+   {% endwith %}
+  <button 
+   style="position:relative; top:4px; left:-28px"
+   hx-post="{% url 'user_follow' author.id %}"
+   id = "LikeButton"
+   hx-target ="#following"                    
+   hx-swap = "outerHTML">
+   
+   {% if request.user not in author.followers.all %}
+   <input type="checkbox" class="checkbox blank"   />
+  
+	   
+   {% else %}
+    <input type="checkbox" checked="checked" class="checkbox [--chkbg:oklch(var(--a))] [--chkfg:oklch(var(--p))]"  /> 
+   {% endif %}
+  </button>
+  {% if request.user  in author.followers.all %}
+  <div style="margin-left:20px">
+    <a href="{% url 'postman:write' %}" class="btn btn-active" style="margin:5px" boosted="true" hx-target="#chat" hx-swap="outerHTML" hx-push-url="true">chat</a>
+  </div>
+  {% endif %}
+</div>
+	 
+ <script>
+  document.body.addEventListener('htmx:configRequest', (e)=>{ 
+             e.detail.headers['X-CSRFToken'] = '{{csrf_token}}';
+			   })
+</script>  

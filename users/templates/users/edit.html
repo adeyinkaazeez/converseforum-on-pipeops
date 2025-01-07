@@ -1,0 +1,44 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+   {{ form.media }} 
+  <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+   </script>
+ 
+</head>
+
+
+<body>
+
+
+ 
+ 
+  
+  
+ <div class="card w-100 bg-neutral text-neutral-content" style=" color:blue; background-color:silver; margin:5px;  ">
+  <div class="card-body items-center text-center">
+   
+ 
+    <form hx-post="{% url 'edit' %}" hx-target="this" hx-swap="innerHTML" hx-trigger="submit" enctype="multipart/form-data" >
+	    <h2 class="card-title" style="text-align:center">Edit Your Profile</h2><br>
+          {{ user_form.as_p }}
+          {{ profile_form.as_p }}
+             {% csrf_token %}
+     <div  class="card-actions justify-end" style="margin:50px;">
+     <button class="btn btn-primary" type="submit" id="save">Save changes</button>	  
+     </div>
+	  <a class="btn  btn-sm" href="javascript:history.go(-1)" hx-boost="true" >Go back</a>
+  </form>
+   </div>
+   </div>
+   
+  
+   {% endblock %}
+ 
+</body>
+</html>

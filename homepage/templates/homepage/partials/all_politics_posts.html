@@ -1,0 +1,159 @@
+{% load static %}
+{% load hitcount_tags %}
+
+
+<div class="grid grid-cols-6 gap-2" >
+ {% for post in politics_posts|slice:':1' %}
+ <div class="col-start-1 col-end-7 ..."  >
+  <p class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">Political news-Latest</p><br>
+  <div class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin:10px"/>
+  <div class="p-4">
+    {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900" style="color:#de6581"><a  href="{{ post.get_absolute_url }}" hx-push-url="true">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+</div>
+{% endfor %}
+ </div>
+  
+  
+ <div class="col-start-1 col-end-4 ..."  >
+ {% for post in politics_posts|slice:'1:2' %} 
+  <div id="scrollDiv" class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin-left:2px; margin-right:6px" />
+  <div class="p-4">
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+ </div>
+ <div class="col-start-4 col-end-7 ..."  >
+ {% for post in politics_posts|slice:'2:3' %}
+  <div id="scrollDiv" class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image2.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin-left:2px; margin-right:6px" />
+  <div class="p-4">
+    {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+ </div>
+ 
+ <div class="col-start-1 col-end-4 ..."  >
+ {% for post in politics_posts|slice:'3:4' %} 
+  <div id="scrollDiv" class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin-left:2px; margin-right:6px" />
+  <div class="p-4">
+    {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+ </div>
+ 
+ <div class="col-start-4 col-end-7 ..."  >
+ {% for post in politics_posts|slice:'4:5' %} 
+  <div id="scrollDiv" class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin-left:2px; margin-right:6px" />
+  <div class="p-4">
+    {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+ </div>
+ 
+ <div class="col-start-1 col-end-4 ..."  >
+ {% for post in politics_posts|slice:'5:6' %} 
+  <div id="scrollDiv" class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin-left:2px; margin-right:6px" />
+  <div class="p-4">
+    {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+ </div>
+<div class="col-start-4 col-end-7 ..."  >
+ {% for post in politics_posts|slice:'6:7' %}
+  <div id="scrollDiv" class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <img src="{{ post.news_image.url }}" class="aspect-video w-full object-cover" alt=""  style="height:200px; width:99%; margin-left:2px; margin-right:6px" />
+  <div class="p-4">
+    {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+    <h3 class="text-xl font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+<a class="btn btn-active btn-primary" href="{% url 'newss:politics_post_list' %}"  style="width:300px; margin-left:-152px; margin-top:-0px; margin-bottom:3px"   >Load more political news</a>
+ </div> 
+</div>

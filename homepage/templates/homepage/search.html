@@ -1,0 +1,21 @@
+{% extends "mybase2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <p style="margin:5px; position:relative; top:20px">Type a keyword into the form below to search for posts relating to the keyword</p>
+          <div style="margin-top:50px;">
+			
+           <h1  style=" width:200px; text-align:center; border:1px solid black; background-color:black; color:white; position:relative; top:22px; left:1.5px">Search for posts</h1>
+             <form hx-get="/search/" hx-target="#homepageBody" hx-swap="outerHTML" hx-boost="true">
+               {{ form.as_p }}
+             <input type="submit" value="Search" class="btn btn-primary" style="margin:7px;">
+			 <span> <a class="btn  btn-sm" href="javascript:history.go(-1)" hx-boost="true" >Go back</a></span>
+            </form>
+         </div> 
+		 
+</html>				   
+{% endblock %}	
+
+
+

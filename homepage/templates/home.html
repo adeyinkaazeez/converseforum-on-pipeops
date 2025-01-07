@@ -1,0 +1,2310 @@
+{% extends "mybase2.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% load homepage_tags %}
+{% block content %}	
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-
+               L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+	</script>
+<style>
+
+ * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+  
+.text-container {
+  position: relative;
+  padding: 2rem;
+  height:8.5rem;
+  width:100%;
+  margin-left:0px;
+  margin-top:-8px;
+  background: linear-gradient(to right, #283048, #859398);
+  border-radius: 0px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  transition: transform 25s ease;
+  
+}
+
+.text-container:hover {
+  transform: translateY(-5px);
+}
+
+h1 {
+  color: #2c3e50;
+  
+  font-weight: 300;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: wrap;
+  
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+h1 span.prefix {
+  font-size: 20px;
+  margin-left:-20px;
+  position: relative;
+  cursor: pointer;
+  transition: color 30s ease;
+  color:white;
+}
+
+h1 span.prefix:hover {
+  color: #7c5ce0;
+}
+
+.message {
+  background: linear-gradient(45deg, #a8d8ea, #aa96da);
+  color: #000;
+  display: block;
+  font-weight: 700;
+  width:100%;
+  position: absolute;
+  padding: 0.2rem 1rem;
+  margin-top: -1.2rem;
+  left: 50px;
+  border-radius: 4px;
+  animation: openclose 30s ease-in-out infinite;
+  height: 6.5rem;
+  cursor: pointer;
+  transition: transform 25s ease, box-shadow 25s ease;
+  overflow:hidden;
+}
+
+.message:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.word1, .word2, .word3, .word4 {
+  font-family: tahoma;
+  position: absolute;
+  width: auto;
+  opacity: 0;
+  height: 4.5rem;
+}
+
+.message .word1 { animation: word-animation 30s infinite ; }
+.message .word2 { animation: word-animation 30s infinite 7s; }
+.message .word3 { animation: word-animation 30s infinite 20s; }
+.message .word4 { animation: word-animation 30s infinite 15s; }
+
+@keyframes word-animation {
+  0%, 5% { opacity: 0; }
+  10%, 22% { opacity: 1; }
+  27%, 100% { opacity: 0; }
+}
+
+@keyframes openclose {
+  0% { top: 0.2rem; width: 0; }
+  5% { width: 0; }
+  10% { width: 90%; }
+  20% { top: 0.2rem; width: 90%; }
+  25% { top: 0.2rem; width: 0; }
+  30% { top: 0.2rem; width: 0; }
+  35% { top: 0.2rem; width: 90%; }
+  45% { top: 0.2rem; width: 90%; }
+  50% { top: 0.2rem; width: 0; }
+  55% { top: 0.2rem; width: 0; }
+  60% { top: 0.2rem; width: 90%; }
+  70% { top: 0.2rem; width: 90%; }
+  75% { top: 0.2rem; width: 0; }
+  80% { top: 0.2rem; width: 90%; }
+  90% { top: 0.2rem; width: 90%; }
+  95% { top: 0.2rem; width: 0; }
+  100% { top: 0.2rem; width: 0; }
+}
+
+
+.grid_12 {
+    margin: 10px 0px 5px 0px; 
+	padding: 0px;  
+	padding: 30px 0px 10px 0px;
+    color: #de6581;
+	
+	}
+   
+ 
+ #all{
+  display:grid;
+  grid-template-columns:60% 40%;
+  gap:2px;
+  }
+  
+ #articles h3, #articles p{
+   margin:3px;
+   padding:3px;
+   }
+ #children{
+   
+   }
+ 
+ #siblings{
+  display:grid;
+  grid-template-columns:100%;
+  gap:2px;
+  }
+  
+ @media screen and (min-width:1024px){
+ 
+   #all-homepage {
+     display:grid;
+	 grid-template-columns:25% 75%;
+	 gap:5px;
+		   }
+		   
+   #sidebar {
+     background-color:grey;
+	 
+	 }
+  
+   #elder{
+      background-color:#f4f1e6;
+	  margin-left:auto;
+	  margin-right:auto;
+   }
+   
+    #sibling-1{
+    border-bottom:1px solid black;
+   }
+   
+   #information {
+     margin:4px;
+	 }
+   #absolute{
+     margin:auto;
+	 }
+   #children{
+     display: grid;
+	 grid-template-columns: 50% 50%;
+	 gap:4px;
+	 }
+	
+    #first-child, #second-child, #third-child, #fourth-child{
+	  background-color:#b2beb5;
+	  }
+   }
+
+   
+   @media screen and (max-width:1023px){
+  
+   #sidebar {
+     display:none;
+	 }
+   #all {
+     display:grid;
+	 grid-template-columns:97%;
+	 }
+	
+   #siblings {
+     display:grid;
+	 grid-template-columns:50% 50%;
+	 gap:5px;
+	 }
+   #sibling-1{
+    border-right:1px solid black;
+   }
+   
+    #children{
+     display: grid;
+	 grid-template-columns: 50% 50%;
+	 gap:4px;
+	 }
+	 
+   #absolute {position:absolute; top:0px; }  
+
+    h1.word1, h1.word2, h1.word3, h1.word4 {font-weight:400px; font-size:18px;}   
+    }
+    
+     
+	 
+</style>
+
+</head>
+<body >
+<div id="animate">
+     {% show_latest_posts as posts %}
+    <div class="text-container">
+     <h1  >
+      <span class="prefix">Latest</span>
+      <div class="message">
+        <div class="word1" style="margin-top:15px">
+		  {% for post in posts|slice:':1' %}
+	     <a  href="{{ post.get_absolute_url }}">{{post}}</a>
+		{% endfor %}
+		</div>
+        <div class="word2" style="margin-top:15px">
+		  {% for post in posts|slice:'1:2' %}
+	     <a  href="{{ post.get_absolute_url }}">{{post}}</a>
+		{% endfor %}
+		</div>
+        <div class="word3" style="margin-top:15px">
+		  {% for post in posts|slice:'2:3' %}
+	     <a  href="{{ post.get_absolute_url }}">{{post}}</a>
+		{% endfor %}
+		</div>
+        <div class="word4" style="margin-top:15px">
+		  {% for post in posts|slice:'3:4' %}
+	     <a  href="{{ post.get_absolute_url }}">{{post}}</a>
+		{% endfor %}
+		</div>
+      </div>
+    </h1>
+  </div>
+</div>
+<div id="all-homepage">
+<div id="sidebar" style="background-color:silver">
+   
+     
+    <!-- <p  style="color:#808000;"> {% show_latest_posts  %}</p> -->
+	   
+	  
+       
+              <ul style="margin:5px">
+                <li>
+                  <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">Total Posts</div>
+                </li>
+                <div class="stat-value" style="margin-left:13px; color:white; border-bottom:1px solid grey">{% total_posts %} </div>
+                <hr>
+
+                <li>
+                  <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">Total Published Posts</div>
+                </li>
+                <div class="stat-value" style="margin-left:13px; color:white; border-bottom:1px solid grey">{% total_published_posts %} </div>
+                <hr>
+
+                <li>
+                  <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">Total Drafted Posts</div>
+                </li>
+                <div class="stat-value" style="margin-left:13px; color:white">{% total_draft_posts %} </div>
+                
+				<li>
+				  {% get_most_commented_posts as most_commented %}
+				  <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">10 Most Discussed Posts </div>
+				  {% for post in most_commented %}
+				  <li  style="margin:4px; font-size:15px; font-family:tahoma; font-weight: 400; color:white; white-space:wrap; border-bottom:1px solid grey"><a  href="{{ post.get_absolute_url }}">{{post}}</a></li> 
+				  {% endfor %}
+				</li>
+				<li>
+				 <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">Contact us</div>
+				  <li style="margin:4px"><i class='fa fa-whatsapp' aria-hidden='true' style='color:green; width:25px; height:25px  '></i><span style="font-size:15px; font-family:tahoma; font-weight: 700; color:white;">08126722466</span></li>
+				  <li style="margin:4px"><i class='fa fa-envelope' aria-hidden='true' style='color:red; width:25px; height:25px  '></i><span style="font-size:15px; font-family:tahoma; font-weight: 700; color:white;" >conversenigeria24@gmail.com</span></li>
+				</li>
+                <li>
+                  <div class="stat">
+                    <form action="{% url 'subscribe' %}" method="post">
+                      <div class="row d-flex justify-content-center">
+                        {% csrf_token %}
+                        <div class="col-auto">
+                          <p class="pt-2" style="font-size:15px; font-family:tahoma; font-weight: 700; color:white;">Subscribe for daily Posts</p>
+                        </div>
+
+
+                        <input id="name" name="name" class="input input-bordered input-primary w-full max-w-xs"
+                          placeholder="Your Name" style="width:200px" /><span> <input id="email" name="email"
+                            type="email" class="input input-bordered input-primary w-full max-w-xs"
+                            placeholder="Email address" style="width:200px" /></span>
+
+
+
+
+                        <div class="col-auto">
+                          <button type="submit" class="btn btncolor">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+
+              </ul>
+       
+</div>
+<div id="all-news-layout"><!-- all-news-layout started here -->
+<div><!-- political news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Political news</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in politics_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  <section>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  </section>
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in politics_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in politics_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.politics_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'newss:politics_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more political news</a>
+</div>
+</div><!-- political news ended here -->
+<div><!-- business news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Business & Economy</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in event_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.event_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in event_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.event_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in event_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.event_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'events:event_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more business posts</a>
+</div>
+</div><!-- business news ended here -->
+<div><!-- crime news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Crime News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in crime_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.crime_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in crime_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.crime_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in crime_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.crime_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'crimes:crime_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more crime news</a>
+</div>
+</div><!-- crime  ended here -->
+<div><!-- entertainment news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Entertainment News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in entertainment_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.entertainment_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in entertainment_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.entertainment_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in entertainment_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.entertainment_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'entertainments:entertainment_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more entertainments news</a>
+</div>
+</div><!-- entertainment news ended here -->
+<div><!-- international news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">International News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in international_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.international_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in international_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.international_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in international_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.international_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'internationals:international_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more international news</a>
+</div>
+</div><!-- international news ended here -->
+<div><!-- educational news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Educational News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in education_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.education_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in education_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.education_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in education_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.education_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'educations:education_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more educational news</a>
+</div>
+</div><!-- educational news ended here -->
+<div><!-- st news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Science & Technology News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in st_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.st_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in st_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.st_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in st_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.st_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'sciences:st_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more science & tech news</a>
+</div>
+</div><!-- st news ended here -->
+<div><!-- sport news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Sport News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in sport_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sport_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in sport_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sport_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in sport_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sport_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'sports:sport_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more sport news</a>
+</div>
+</div><!-- sport news ended here -->
+<div><!-- celebrity news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Celebrity News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in celebrity_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.celebrity_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in celebrity_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.celebrity_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in celebrity_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.celebrity_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'celeb:celebrity_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more celebrity news</a>
+</div>
+</div><!-- celebrity news ended here -->
+<div><!-- love news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Love & Relationship News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in love_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.love_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in love_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.love_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in love_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.love_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'loves:love_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more love & relationship news</a>
+</div>
+</div><!-- love news ended here -->
+<div><!--campus news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Campus News</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in campus_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.campus_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in campus_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.campus_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in campus_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.campus_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'campuss:campus_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more campus gists</a>
+</div>
+</div><!-- campus news ended here -->
+<br>
+
+<div><!-- happening news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Happenings Around Me</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in happenings_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.happenings_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in happenings_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.happenings_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in happenings_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.happenings_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'happening:happenings_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more happenings around you</a>
+</div>
+</div><!-- happening news ended here -->
+<div><!-- personality news started here -->
+<p class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600">Personality Posts</p>
+<div id="all" class="shadow-xl">
+ 
+  {% for post in personality_posts|slice:':1' %}
+  
+ <div class="card card-compact bg-base-100  shadow-xl" id="elder">
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" />
+  </figure>
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.personality_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  
+ </div>
+</div>
+ {% endfor %}
+ <div id="siblings"  > 
+  <div id="sibling-1" class="shadow-2xl...">
+   {% for post in personality_posts|slice:'1:2' %}
+   <div class="card card-compact bg-base-100 " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+   {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.personality_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+     
+ </div>
+</div>
+</div>
+{% endfor %}
+<div id="sibling-2" class="shadow-2xl...">
+{% for post in personality_posts|slice:'2:3' %}
+ <div class="card card-compact bg-base-100  " >
+  <div class="card-body items-center text-center">
+   <figure class="px-10 pt-10">
+   <img src="{{ post.news_image.url }}"  alt="" style="height:100px"/>
+  </figure>
+ {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+   <div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.personality_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+  <h3 class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+   
+ </div>
+</div>
+</div>
+{% endfor %}    
+</div>
+<a class="btn btn-active btn-primary" href="{% url 'personalitys:personality_post_list' %}"  style="width:300px; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:3px" hx-boost="true"   >Load more personality news</a>
+</div>
+</div><!-- personality news ended here -->
+
+<div id="articles">
+<b><h2 class="grid_12"  ><a href="" style="color:blue;">Article section</a></h2></b><br>
+<a href="{% url 'political_articles:political_post_list' %}"  class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Political Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in political_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.political_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in political_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.political_comments_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in political_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.political_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in political_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.political_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+<a href="{% url 'business__articles:business_article_post_list' %}"  class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Business Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in business_article_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.business_article_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in business_article_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.business_article_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in business_article_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.business_article_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in business_article_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.business_article_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+
+ <a href="{% url 'health_articles:health_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Health Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in health_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.health_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in health_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.health_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in health_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.health_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in health_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.health_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+
+<a href="{% url 'sport_articles:sports_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Sport Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in sports_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sports_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in sports_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sports_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in sports_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sports_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in sports_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.sports_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+
+<a href="{% url 'cultures:culture_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Cultural Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in culture_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.culture_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in culture_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.culture_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in culture_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.culture_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in culture_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.culture_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+
+<a href="{% url 'lifestyles:lifestyle_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Lifestyle Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in lifestyle_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.lifestyle_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in lifestyle_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.lifestyle_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in lifestyle_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.lifestyle_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in lifestyle_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.lifestyle_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+<a href="{% url 'foods:food_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline">Food & Recipe</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in food_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.food_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in food_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.food_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in food_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.food_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in food_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.food_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+<a href="{% url 'innovations:innovation_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline; color:blue">Innovative Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in innovation_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.innovation_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in innovation_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.innovation_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in innovation_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.innovation_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in innovation_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.innovation_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+
+
+<a href="{% url 'religions:religion_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-semibold text-blue-600" style="text-decoration:underline; color:blue">Religious Articles</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in religion_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.religion_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in religion_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.religion_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in religion_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.religion_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in religion_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.religion_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+</div>
+
+
+<a  href="{% url 'howtos:howto_post_list' %}" class="inline-flex items-center gap-1  px-2 py-1 text-xs font-bold " style="text-decoration:underline; color:blue">How-to</a>
+ <div id="children">
+  <div class="card shadow-xl" id="first-child">
+   {% for post in howto_posts|slice:':1' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt=""   style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+    
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.howto_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ <div class="card shadow-xl" id="second-child">
+   {% for post in howto_posts|slice:'1:2' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.howto_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="third-child">
+   {% for post in howto_posts|slice:'2:3' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.howto_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}	
+    
+ 
+ </div>
+ 
+ <div class="card shadow-xl" id="fourth-child">
+   {% for post in howto_posts|slice:'3:4' %}
+    <figure class="px-10 pt-10">
+     <img src="{{ post.news_image.url }}"  alt="" style="margin-left:auto; margin-right:auto; height:130px"/>
+    </figure>
+   
+  {% if request.user == post.author %}
+	 <p class="mb-1 text-sm text-primary-500"><a href="{% url 'my_activities' %}" class="name" style="color:blue" ><i>{{ post.author }}</i></a> • <time>{{ post.publish }}</time></p>
+	 {% else %}
+    <p class="mb-1 text-sm text-primary-500"><a class="name" style="color:blue" href="{% url 'post_author' pk=post.author.pk %}" >{{ post.author }}</a> • <time>{{ post.publish }}</time></p>
+	{% endif %}
+	
+   <h3 id="absolute" class="text-xl font-medium text-gray-900" style="position:relative; color:#de6581; "><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+	<div class="mt-4 flex gap-2" id="information">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> <i class="fa fa-comment" aria-hidden="true"></i>{{  post.howto_comments.count }} </span>
+       <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{post.likes.count}}</span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+    </div>
+	{% endfor %}
+    
+ 
+ </div>
+  
+</div>
+
+</div><!-- all-news-layout ended here -->
+</div><!-- this is for all homepage -->
+</body> 
+</html>
+<br>
+{% endblock %}	 

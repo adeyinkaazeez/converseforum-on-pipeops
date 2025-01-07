@@ -1,0 +1,64 @@
+{% extends "mybase2.html" %}
+ {% load static %}
+   {% block content %}
+   <html>
+    <head>
+     <style>
+	 
+	    
+		  
+		form, button {
+	     
+	     margin-bottom:10px;
+	  }
+	  
+	    
+	 
+	    .loginpage {
+		  margin-left:50px;
+		  margin-top:50px;
+		  width:90%;
+		  }
+		  
+		  
+		  
+	</style>
+   </head>
+ 
+	  <div class="loginpage" id="login">
+	  
+        <body id="login" >
+		
+		<h1 style="color:green">Log-in</h1>
+          <p>Please, use the following form to log-in:</p>
+            
+			<form method="post" action="{% url "login" %}"  style="margin-top:30px;" hx-boost="true">
+			
+             {{ form.as_p }}
+             {% csrf_token %}
+             <input type="hidden" name="next" value="{{ request.GET.next }}" />
+             <p><input class="btn btn-active btn-primary" type="submit" value="Log in"></p>
+            </form><br>
+			<i>Or sign-in with any of these social accounts</i><br>
+			<b><a class="btn btn-active btn-primary" style="border:2px solid blue; background-color:blue; color:white; text-decoration:none" href="{% url "social:begin" "facebook" %}">
+              Facebook
+            </a></b>
+			
+			
+			
+			<b><a class="btn btn-active btn-primary" style="border:2px solid red; background-color:red; color:white; text-decoration:none" href="{% url "social:begin" "google-oauth2" %}">
+			 Google
+             </a></b>
+			
+			<b><a class="btn btn-active btn-primary" style="border:2px solid black; background-color:black; color:white; text-decoration:none" href="{% url "social:begin" "twitter" %}">
+			 X
+             </a></b>
+			</br><br>
+			
+			<a href="{% url "password-reset" %}" style="color:red" >Forgot password?</a><span> <a href="{% url 'register' %}" style="color:blue">Don't have an account?</a></span>
+		</div>
+		</div>
+</body>
+</html>
+     {% endblock %}
+	 

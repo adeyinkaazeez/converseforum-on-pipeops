@@ -1,0 +1,42 @@
+
+{% load static %}
+
+{% block content %}
+
+  <!DOCTYPE HTML>
+  <head>
+  <script src="https://cdn.tiny.cloud/1/lvab08hemtjn4v4abhs2dts4ersxom2gtfpoxxbhdqmv9oap/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+      <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-
+               L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous"></script>
+	<style>
+     textarea  {
+     width:100%;
+    }
+  </style>	
+</head>
+<body>
+   {%  if comment.edited %}
+    <p style="color:green;">{{ comment.body }} was successfully updated</p>
+	<button class="btn btn-success" ><a hx-get="{% url "my_activities" %}" hx-target="#body" hx-swap="outerHTML">OK</a></button>
+	
+
+{% else %} 
+  <div  style="border:2px solid grey; margin:6px; background-color:silver"> 
+  <h2>Update Comment</h2>
+ 
+   <form  hx-post="{% url 'edit_comment' %}" hx-target="#allComment1" hx-swap="outerHTML" enctype="multipart/form-data" class= "post-form" style="width:100%">
+   {% csrf_token %}
+   {{form.as_p}}
+    <input type= "Submit" class="btn btn-active btn-primary" value="submit" style="margin:5px"
+    </form>
+	<button class="btn btn-danger" id="editing"><a style="text-decoration:none;"  hx-get="{% url "my_activities" %}" hx-target="#body" hx-swap="outerHTML">cancel</a></button>
+  </div>
+
+ {% endif %}
+ <script src="{% static 'js/uploader.js' %}"></script>
+{% endblock %}
+
+</body>

@@ -1,0 +1,6 @@
+ {% if request.user not in comment.likes.all %}
+  <button hx-post="{% url 'cultures:comment-like' post.pk comment.pk%}"  hx-swap="outerHTML" hx-target="this" class="remove-default-btn" ><b><i class="fa fa-thumbs-up" style="font-size:12px; color:white"></i> <span style="font-size:12px; color:white">{{ comment.likes.all.count }}</span></b></button>
+{% else %}
+<button hx-post="{% url 'cultures:comment-like' post.pk comment.pk%}"  hx-swap="outerHTML" hx-target="this" class="remove-default-btn" ><b><i class="fa fa-thumbs-up" style="font-size:12px; color:blue"></i> <span style="font-size:12px; color:blue">{{ comment.likes.all.count }}</span></b></button>
+ {% endif %}
+ 

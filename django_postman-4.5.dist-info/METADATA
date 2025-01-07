@@ -1,0 +1,80 @@
+Metadata-Version: 2.1
+Name: django-postman
+Version: 4.5
+Summary: User-to-User messaging system for Django, with gateway to AnonymousUser, moderation and thread management, user & exchange filters, inbox/sent/archives/trash folders, support for apps: auto-complete, notification, mailer.
+Author-email: Patrick Samson <maxcom@laposte.net>
+License: Copyright (c) 2010, Patrick Samson.
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without modification,
+        are permitted provided that the following conditions are met:
+        
+            1. Redistributions of source code must retain the above copyright notice, 
+               this list of conditions and the following disclaimer.
+            
+            2. Redistributions in binary form must reproduce the above copyright 
+               notice, this list of conditions and the following disclaimer in the
+               documentation and/or other materials provided with the distribution.
+        
+            3. Neither the name of django-postman nor the names of its contributors
+               may be used to endorse or promote products derived from this software
+               without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+        ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+        WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+        ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+        (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+        LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+        ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+        (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        
+Project-URL: Repository, https://bitbucket.org/psam/django-postman
+Keywords: django,messages,messaging,email,moderation
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Communications :: Email
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django
+
+# Django Postman
+
+This is an application for the Django web framework.
+
+It provides a messaging functionality, mainly for a User-to-User exchange,
+and with these convenient features:
+* A non-User (email is undisclosed) can write to a User and get a reply
+  (can be disabled by configuration)
+* Exchanges can be moderated (with auto-accept and auto-reject plug-ins)
+* Optional recipient filter plug-ins
+* Optional exchange filtering plug-ins (blacklists)
+* Multi-recipient writing is possible (can be disabled by configuration)
+  with min/max constraints
+* Messages are managed by conversations
+* Messages in folders are sortable by sender|recipient|subject|date
+* 'Archives' folder in addition to classic Inbox, Sent and Trash folders
+* A Quick-Reply form to only ask for a response text
+* A cleanup management command to clear the old deleted messages
+
+It has support for optional additional applications:
+* Autocomplete recipient field (default is 'django-ajax-selects'),
+  with multiple recipient management
+* New-message notification (default is 'pinax-notifications')
+* Asynchronous mailer (default is 'django-mailer')
+
+See the `docs/` directory for Sphinx documentation.
+For example, build the HTML version with `>make html`
+and open `docs/_build/html/index.html` or consult [ReadTheDocs](https://django-postman.readthedocs.io).
+
+Copyright (C) 2010, Patrick Samson\
+This program is licensed under the BSD License (see the file LICENSE).

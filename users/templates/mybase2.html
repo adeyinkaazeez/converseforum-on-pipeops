@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+   {{ form.media }}
+    <meta charset="utf-8">
+    <script src="{% static 'js/main.js'%}"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
+	<style>
+	 header {
+	   position: fixed; 
+       top: 0px; 
+       left: 0px;  
+       padding: 0px; 
+	   z-index:10;
+	   width: 100%; 
+       height:150px;
+       background-repeat: no-repeat;
+       background-position: 50% 90%;
+       background-color: #c0c6c7;
+	   border:5px solid #8d918d;
+   }
+   
+  .brand {
+     text-align:center;
+	 line-height:4px;
+	 font-size:20px;
+	 color:blue;
+	 }
+
+
+nav {
+     margin-top: 0px}
+ nav img {
+   width:50px; 
+   height:40px;}
+	
+nav, footer {
+   clear: both;
+   color: #ffffff;
+   background-color: #c0c6c7;
+   border-bottom:2px solid #8d918d;
+   height: 48px;}
+
+
+nav ul {
+   margin: 0px;
+   padding: 5px 0px 5px 30px;}
+   
+<!--nav li {
+   display: inline;
+   margin-right: 40px;}-->
+
+
+  a {
+   color: black;
+   text-decoration:none;
+   }
+   
+nav li a:hover, nav li a.current {
+   color: #000000;}  
+
+
+
+nav .home {
+  position: absolute;
+  left: 2%;
+  margin-top:-5px;
+   font-size:50px;
+   }
+   
+ nav .create-post {
+    font-size:50px;
+    color:black;
+	margin-top:-5px}
+	
+nav .edit-profile {
+    margin-top:-5px;
+    font-size:50px;
+    color:black}
+  
+nav .create-post, .dropdown1 {
+  position: absolute;
+  display:inline-block;
+  left: 50%;
+  text-decoration:none;
+  }
+  
+nav .edit-profile, .dropdown2 {
+  position: absolute;
+  display:inline-block;
+  left: 60%;
+  }
+  
+
+  
+nav .logout {
+  position: absolute;
+  left: 70%;
+  margin-top:-5px;
+  font-size:50px;}
+
+
+nav .search {
+  position: absolute;
+  left: 82%;
+  top:250;
+   margin-top:10px;}
+   
+
+   
+.dropdown-content  {
+   display:none;
+   position:absolute;
+   top:30px;
+   background-color:#c0c6c7;
+   width:350px;
+   box-shadow:0px 8px 16px 0px rgba(0,0,0,0,2);
+   margin-left:-150px;
+  padding:5px;
+   z-index:1;
+   text-align:center;
+   color:blue;
+   
+   }
+   
+   .dropdown-content a, #mymy {
+    font-size:30px;
+	padding:5px 5px;
+	width:300px;
+	margin:2px;
+	color: white;
+	background-color:green;
+	
+	}
+   
+.dropdown1:hover .dropdown-content {
+   display: block;
+   }
+   
+.dropdown2:hover .dropdown-content {
+   display: block;
+   }
+   
+ 
+
+@media only screen and (min-width: 200px) and (max-width:980px) {
+header {
+	   position: fixed; 
+       top: 0px; 
+       left: 0px;  
+       padding: 0px; 
+	   z-index:10;
+	   width: 100%; 
+       height:280px;
+       border:5px solid #8d918d;
+       background-repeat: no-repeat;
+       background-position: 50% 80%;
+       background-color: #c0c6c7;;
+	   
+   }
+  .brand {
+     text-align:center;
+	 line-height:4px;
+	 font-size:30px;
+	 color:blue;
+	 }
+   
+ 
+   
+
+   
+   nav {
+     height:130px;
+	 }
+	 
+  
+   
+  nav .home {
+   position: absolute;
+   left: 1%;
+   font-size:100px;
+   margin-top:2px;}
+   
+  nav .create-post {
+    font-size:100px;
+    color:black;
+	margin-top:2px}
+	
+nav .edit-profile {
+    margin-top:2px;
+    font-size:100px;
+    color:black}
+   
+ nav .create-post, .dropdown1 {
+  position: absolute;
+  left: 35%;
+  
+  }
+  
+ 
+  
+ nav .edit-profile, .dropdown2 {
+  position: absolute;
+  left: 60%;
+  }
+  
+ nav .logout {
+  position: absolute;
+  left: 85%;
+  font-size:100px;
+  margin-top:2px;}
+  
+  nav .search {
+  display:none;
+  position: absolute;
+  margin-left: -20%;
+  margin-top:300px;
+  
+  }
+  
+  .dropdown-content  {
+   display:none;
+   position:absolute;
+   top:120px;
+   width:600px;
+   box-shadow:0px 8px 16px 0px rgba(0,0,0,0,2);
+   background-color:#c0c6c7;
+   margin-left:-250px;
+   margin-top:25px;
+   margin-bottom:20px;
+   z-index:1;
+   text-align:center;
+   color:blue;
+   
+   }
+  .dropdown-content a, #mymy {
+    font-size:60px;
+	padding:5px 5px;
+	width:550px;
+	margin:10px;
+	color: white;
+	background-color:green;
+	
+	}
+  }
+</style>
+ 
+ </head>
+ 
+ 
+ 
+ <header>
+		<nav>
+           
+           <div class="home" ><a href="{% url "homepage" %}" ><i class="fa fa-home" title="home"></i></a></div>
+		   {% if request.user.is_authenticated %}
+		   <div class="dropdown1">
+	        <span><div class="create-post"><i class="fa fa-user" title="profile"></i></span></div>
+	       
+		   <div class="dropdown-content">
+	        <button  class="btn btn-primary" id="mymy"><a  href="{% url "edit" %}">Edit Profile</a>
+	        <br>
+	        <button  class="btn btn-primary" id="mymy"><a href="{% url "change_password" %}">Change Password</a>
+	        
+	      
+	      
+	     
+	     </div>
+		 </div>
+	      <div class="dropdown2">
+	        <span><div class="edit-profile"><i class="fa fa-edit" title="post"></i></span></div>
+		  <div class="dropdown-content">
+		  <button  class="btn btn-primary" id="mymy"><a href="#">News</a></button>
+	      
+	      <button  class="btn btn-primary" id="mymy"><a href="#">Articles</a></button>
+	      
+	     <button  class="btn btn-primary" id="mymy"><a href="#">E-learning</a></button>
+	      
+	      <button  class="btn btn-primary" id="mymy"><a href="#">Gist</a></button>
+	      
+	      <button  class="btn btn-primary" id="mymy"><a href="#">Review</a></button>
+	     </div>
+	     </div>
+		 <div class="logout"><a style="text-decoration:none" href="{% url "logout" %}"><i class="fa fa-sign-out" title="signout"></i></a></div>
+		 <div class="search">
+		    <form class="form-inline pull-xs-right myform">
+             <input class="form-control" type="text" placeholder="Search">
+             <button class="btn btn-success" type="submit">Search</button>
+            </form>	
+		 </div>
+			
+		 {% else %}
+	     
+	     <div class="create-post"><a href="{% url "login" %}"><i class="fa fa-sign-in" title="log-in"></i></a></div>
+         <div class="logout"><a href="{% url "register" %}"><i class="fa fa-user-plus" title="register"></i></a></div>
+		 <div class="dropdown2">
+	        <span><div class="edit-profile"><i class="fa fa-edit"></i></span></div>
+		  <div class="dropdown-content">
+		  <a class="dropdown-item" style="color:white" href="{% url "register" %}" ><i class=" fa fa-user-plus" style="margin:2px;"></i>Sign up</a>
+          <br>
+		  <br>
+		  <a class="dropdown-item" style="color:white" href="{% url "login" %}"><i class=" fa fa-sign-in" style="margin:2px;"></i>Login</a>
+        
+	     </div>
+	     </div>
+		   
+           
+		   
+		   <div class="search">
+		    <form class="form-inline pull-xs-right myform">
+             <input class="form-control" type="text" placeholder="Search">
+             <button class="btn btn-success" type="submit">Search</button>
+            </form>	
+		  </div>
+          {% endif %}
+        </nav>
+		
+		<div class="brand">
+		 <h1> Converse</h1><span ><h3 style="margin-left:100px">We do it in group</h3></span>
+		</div>
+       </header>
+	{% include 'homepage/includes/messaging.html' %} 	 
+	
+<div id="content">
+{% block content %}
+{% endblock %}

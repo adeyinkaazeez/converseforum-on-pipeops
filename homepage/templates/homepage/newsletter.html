@@ -1,0 +1,36 @@
+{% extends "mybase2.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+ <!DOCTYPE HTML>
+  <html>
+  <head>  
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    
+	#id_subject, #id_receivers, #id_message, #div_id_subject {
+	 margin-bottom:20px;
+	 margin-left:5px;
+	 width:100%;
+	 }
+	 
+	
+  </style>
+ </head> 
+ <body >
+<div >
+ <form method="POST" >
+  {% csrf_token %}
+  {{ form|crispy }}
+  {{ form.media }}
+  <div class="form-group">
+   <button class="btn btn-outline-info" type="submit">Send</button>
+  </div>
+ </form>
+</div>
+<script src="{% static 'js/uploader.js' %}"></script>
+</body>
+{% endblock content %} 
+  

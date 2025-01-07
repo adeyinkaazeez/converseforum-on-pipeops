@@ -169,3 +169,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+<<<<<<< HEAD
+=======
+
+.env.dev
+.env.prod
+.env.prod.db
+
+>>>>>>> a03ebb2 (my first commit)

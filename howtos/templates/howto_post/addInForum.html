@@ -1,0 +1,74 @@
+{% extends "mybase2.html" %}
+{% load static %}
+{% block content %}
+
+ <!DOCTYPE HTML>
+ <html>
+  <head>
+   {{form.media}}
+   
+
+
+<script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-
+               L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous"></script>
+ <style>
+ .edited-area p{ font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:green;}
+ .edited-area a{text-decoration:underline; color:grey}
+ .edited-area a:hover{color:blue}
+ 
+  #id_title,
+    #id_tags,
+    #id_news_image,
+    #id_news_image_two,
+	#id_news_image_three,
+	#id_news_image_four,
+    #id_caption,
+	#id_caption_two,
+	#id_caption_three,
+	#id_caption_four,
+    #id_body {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .helptext {
+      color: green;
+    }
+
+    #id_body {
+      border: 1px solid red
+    }
+ </style>
+</head>
+<body>
+{% if post.edited %}
+<div class="edited-area" style="margin:20%">
+<p>Congratulations. You have successfully edited your post.</p><br><br>
+
+<a  href="{{ post.get_absolute_url }}" hx-boost="true">Go back to the  post </a>
+</div> 
+{% else %}
+<br>
+<ul style="list-style-type:square">
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Use this Form to Edit your Post. A Text Editor is expected to display for Editing. If not, refresh the page to get the Text Editor Displayed</li>
+  <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">There are four image upload buttons and their caption. The first is required while others are optional. Use them to add more image to the body of your post instead of the image upload icon in the text editor</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">You can use the caption to give detailed description of your image especially the other three images</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Do not Post hate speech on converseForums</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Do not Defame any character</li>
+ <li style="margin:5px;font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; color:blue;">Remember that you are solely responsible for any post published by you</li>
+</ul>
+<br><br>
+ <form  method ="post" action="{% url 'howtos:edit_post' post.pk %}" hx-boost="true" enctype='multipart/form-data' class= 'post-form' >
+{% csrf_token %}
+{{form.as_p}}
+
+<input type="submit" value="Submit" class="btn btn primary" style="margin:5px"  >
+<span ><a class="btn  btn-sm" href="javascript:history.go(-1)" hx-boost="true">cancel</a></span>
+</form>
+{% endif %}
+
+{% endblock %}
+</body>
+</html>

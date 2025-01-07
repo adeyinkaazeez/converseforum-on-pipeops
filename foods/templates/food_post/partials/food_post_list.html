@@ -1,0 +1,168 @@
+{% load static %}
+{% load hitcount_tags %}
+{% load food_tags %}
+
+
+<head>
+<style>
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+  
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+</style>
+</head>
+<body>
+ {% get_most_commented_posts as most_commented_posts %}
+   {% for post in most_commented_posts %}
+<div class="slideshow-container"  >
+
+<div class="mySlides fade">
+  <div class="mx-auto max-w-wd overflow-hidden rounded-lg bg-white shadow" style="margin-bottom:5px; ">
+  <ul class="divide-y divide-gray-100 py-2 px-4">
+    <p style="color:blue">Most Discussed Events</p>
+   <li class="flex py-4" >
+    <div  style="margin-right:5px; margin-top:5px; width:500px">
+	 <img class="rounded-lg" id="myimg" src="{{ post.news_image.url }}" />
+	</div>
+    <div class="mr-1 flex-2" style="margin-right:-15px";>
+	 <h4 style="width:150px; color:black" class="text-lg font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+	 <div class="mt-1 text-sm text-gray-400"><span>{{ post.author }}</span> . <time>{{ post.publish }}</time></div>
+	 <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.crime_comments.count }} </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"><i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for post %} </span> </span>
+	</div>
+	
+   </li>
+  </ul>
+</div>
+</div>
+</div>
+ {% endfor %}
+
+</div>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+  <span class="dot" onclick="currentSlide(4)"></span> 
+  <span class="dot" onclick="currentSlide(5)"></span> 
+</div>
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 5500); // Change image every 2 seconds
+}
+</script>
+<hr>
+
+	  {% for post in food_posts %}
+<div class="mx-auto max-w-wd overflow-hidden rounded-lg bg-white shadow" style="margin-bottom:5px; ">
+  <ul class="divide-y divide-gray-100 py-2 px-4">
+    <p style="color:blue">All Food Posts</p>
+   <li class="flex py-4" >
+    <div  style="margin-right:5px; margin-top:5px; width:500px">
+	 <img class="rounded-lg" id="myimg" src="{{ post.news_image.url }}" />
+	</div>
+    <div class="mr-1 flex-2" style="margin-right:-15px";>
+	 <h4 style="width:150px; color:#de6581" class="text-lg font-medium text-gray-900"><a  href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+	 <div class="mt-1 text-sm text-gray-400"><span>{{ post.author }}</span> . <time>{{ post.publish }}</time></div>
+	 <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"><i class="fa fa-comment" aria-hidden="true"></i>{{  post.food_comments.count }} </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600">  </span>
+	 
+	</div>
+	
+   </li>
+  </ul>
+</div>
+	{% endfor %}
+	 <div id="FoodNews">
+	{% if food_posts.has_next  %}
+    <span style="font-size:40px"
+      hx-get="{% url 'foods:all_food_posts_view' %}?page={{food_posts.next_page_number }}"
+      hx-swap="beforeend"
+      hx-target="#FoodNews"
+    
+      hx-trigger="revealed">
+     </span>
+   	 {% else %} 
+      <b><h1 style="color:red">End</h1></b> 
+     {% endif %} 
+	</div>
+	</div>
+	
+	
+	
+	

@@ -1,0 +1,21 @@
+server {
+ listen 80;
+ listen 443 ssl;
+ ssl_certificate /app/converse/ssl/converse.crt;
+ ssl_certificate_key /app/converse/ssl/converse.key;
+ server_name converse.com converseforum.com.ng;
+ # ...
+}
+
+
+
+
+location /static/ {
+  alias /home/app/web/staticfiles/;
+  add_header Access-Control-Allow-Origin *;
+}
+
+location /media/ {
+  alias /home/app/web/mediafiles/;
+  add_header Access-Control-Allow-Origin *;
+}

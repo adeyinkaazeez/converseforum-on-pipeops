@@ -1,0 +1,729 @@
+{% extends "mybase.html" %}
+{% load static %}
+ 
+   
+      
+{% block content %}	  
+
+
+
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|Poppins">
+ 
+
+	
+<style>
+ .left-sidebar {
+  
+   position:fixed;
+   overflow: auto;
+   width: 25%;
+   height:auto;
+   
+   
+  
+   }
+   
+.main-content {
+  width: 970px;
+  margin-left:350px;
+  
+  }
+  
+.articles {
+   width:800px;
+   margin-left: 450px;
+   }
+   
+.left-sidebar ul li {
+    list-style-type: none;
+    margin-left:-30px;	
+	border-bottom:5px solid silver;
+	
+	
+	}
+	
+ a {
+    text-decoration: none;
+	
+	}
+	
+a:hover {
+		  background-color: black;
+		  color: white;
+		  }
+	
+.main-content img, .articles img {
+     width: 200px;
+     height: 250px;
+     border: 1px solid #d6d6d6;
+	 margin-bottom:10px;
+	 margin-left:10px;
+	 margin-top:10px;
+	 margin-right: 30px;
+     box-shadow: 2px 2px 4px rgba(0,0,0,.5);
+    }	 
+	
+.health-article-content, .sport-article-content, .culture-article-content, .politics-article-content, .fashion-article-content   {
+    	
+	background-color: white;
+	margin-bottom:10px;
+	margin-top:10px;
+	margin-left:10px;
+	margin-right:10px;
+	font-weight:normal;
+	}
+	
+.articles  {
+   background-color: silver;
+   font-weight:normal;
+   
+   
+   }
+	
+
+.content1, .content2, .content3, .content4, .content5, .content6  {
+    	
+	background-color: white;
+	margin-bottom:10px;
+	margin-top:10px;
+	margin-left:10px;
+	margin-right:10px;
+	}
+	
+.main-content  {
+   background-color: silver;
+   }
+
+.left-sidebar: {
+     background-color:white;
+     box-shadow: 8px 2px 8px rgba(0,0,0,.5);
+     	 
+     }
+
+.welcome, .most-commented-posts, .popular-articles, .sport, .news-category, .stat, .latest-posts, .about, .contact, .howto, .elearning, .gist, .review  {
+	   background-color: #f1f1f1;
+	   margin-bottom:10px;
+	   margin-top:10px;
+	   margin-left:10px;
+	   margin-right:10px;
+		}	
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Abril Fatface', serif;
+
+    }  
+p, a {
+   Poppins, sans-serif;
+   }
+	
+	.container {
+	    
+     
+     display: grid;
+     grid-template-columns: 100%;
+	
+     grid-column-gap: 0;
+     grid-row-gap: 20px;
+   }
+	  
+	
+	  
+	.articles {
+	   display:grid;
+	   grid-row-gap: 0px;
+	   grid-column-gap:0px;}
+	   
+	.main-content  {
+	   display:grid;
+	   grid-row-gap: 0px;
+	    grid-column-gap:0px;
+	   }
+	   
+	.left-sidebar {
+	  display:grid;
+	  grid-row-gap: 0px;
+	  height:90%;
+	  margin-bottom:100px;
+      overflow: auto;
+	  background-color:white; 
+	  
+	 
+	  }
+	  
+	
+	  
+	.footer  {
+	  height:auto;
+	  text-align:center;
+	  }
+		  
+ .container > div { border : solid 5px  #888; }
+
+
+
+@media only screen and (min-width: 981px) {
+     
+     .articles  {
+	    grid-template-columns: 49% 49%; 
+        grid-row-gap: 15px;
+        grid-column-gap: 15px;		}
+    
+	 .main-content  {
+	       grid-template-columns: 49% 49%;
+		   grid-row-gap: 20px;
+           grid-column-gap: 20px;
+          		   
+		}
+		
+	.main-content img, .articles img {
+	   float:left;
+	    margin-right: 30px;
+		border: 1px solid black;
+		
+	   }
+	   
+	 .left-sidebar {
+	    margin-left:-115px;
+		margin-top:103px;
+		margin-bottom:0px;
+		height:82%;
+      }
+  
+     .main-content {
+       width: 1000px;
+       margin-left:225px;
+	   margin-top:103px;
+  
+     }
+  
+     .articles {
+       margin-left:225px;
+	   width: 1000px;
+	   
+      }
+	  
+	.footer  {
+	  height:auto;
+	  margin-left:255px;
+	  width:1000px;
+	  margin-bottom:10px
+	  }
+		
+	}
+
+
+	@media only screen and (min-width: 200px) and (max-width:980px) {
+    .article-img {
+	  width:90px;
+	  }
+	
+   
+	.articles  {
+	    grid-template-columns: 100%; 
+         margin-left:340px;
+          width:600px;	
+          grid-row-gap: 20px;
+           grid-column-gap: 20px;		  
+	          }	
+		
+	 .main-content  {
+	       grid-template-columns:99%;
+           
+		   grid-row-gap: 20px;
+           grid-column-gap: 20px;
+            margin-left:340px;
+            margin-right:100px;			
+           width:620px;
+		   margin-top:103px;
+   		   
+		}
+		
+		.left-sidebar  {
+            width:350px;
+            height:92%;
+            overflow: scroll;
+			font-size: 40px;
+			margin-top:103px;
+           }
+		   
+		   
+		.news-category a {
+		   font-size:35px;
+		   
+		   }
+	    
+	.popular-articles a {
+		   font-size:35px;
+		   
+		   }
+	    
+	.sport a {
+		   font-size:35px;
+		   
+		   }
+		   
+	.about a, .contact a, .howto a, .elearning a, .gist a, .review a {
+	    	font-size:35px;
+		   
+		   }  
+		   
+		.articles > a {
+		   font-size:45px;
+		   padding: 8px 16px;
+		   }
+		   
+	 .health-article-content  {
+	    display: grid;
+		}
+            
+ .health-article-content > img {
+		    width:85%;
+		    margin-right: 50px;
+			margin-left:50px;
+            margin-top:50px;
+		    margin-bottom:10px;
+			
+		  
+			}
+			
+		 .health-article-content > p {
+			font-size:35px;
+		    padding: 2px 2px;
+			
+		   
+			}
+			
+		.sport-article-content {
+		     
+	     display: grid;
+		      }
+			
+		 .sport-article-content > img {
+		     width:85%;
+		    margin-right: 50px;
+			margin-left:50px;
+            margin-top:50px;
+		    margin-bottom:10px;
+		  
+			}
+			
+		 .sport-article-content > p {
+			font-size:35px;
+		    padding: 2px 2px;
+		   
+			}
+			
+		.politics-article-content { 
+		    display: grid;
+			}
+			
+		 .politics-article-content > img {
+		     width:85%;
+		     margin-right: 50px;
+			 margin-left:50px;
+             margin-top:50px;
+		    margin-bottom:10px;
+		  
+			}
+			
+		 .politics-article-content > p {
+			font-size:35px;
+		    padding: 2px 2px;
+		   
+			}
+		
+		.culture-article-content {
+		   display: grid;
+		    }
+   
+   
+       .culture-article-content > img {
+		    width:85%;
+		    margin-right: 50px;
+			margin-left:50px;
+            margin-top:50px;
+		    margin-bottom:10px;
+		  
+			}
+			
+		 .culture-article-content > p {
+			font-size:35px;
+		    padding: 2px 2px;
+			}
+			
+		.fashion-article-content  {
+		    display: grid;
+			}
+			
+		 .fashion-article-content > img {
+		    width:85%;
+		    margin-right: 50px;
+		   margin-left:50px;
+           margin-top:50px;
+		   margin-bottom:10px;
+		  
+			}
+			
+		 .fashion-article-content > p {
+			font-size:35px;
+		    padding: 2px 2px;
+		   
+			}
+		
+			
+		
+		  
+		  
+		.content1 > img {
+		   float: left;
+		   margin-right: 30px;
+		   margin-top:10px;
+		   margin-bottom:10px;
+		   }
+		   
+		.content1 > h1 {
+		   font-size:55px;
+		   }
+		   
+		.content2 > img {
+		   float: left;
+		    margin-right: 30px;
+		    margin-top:10px;
+		   margin-bottom:10px;
+		   }
+		   
+		.content2 > h1 {
+		   font-size:55px;
+		   }
+		  
+		.content3 > img {
+		   float: left;
+		    margin-right: 30px;
+		    margin-top:10px;
+		   margin-bottom:10px;
+		   }
+		   
+		.content3 > h1 {
+		   font-size:55px;
+		   }
+		   
+		.content4 > img {
+		   float: left;
+		    margin-right: 30px;
+		    margin-top:10px;
+		   margin-bottom:10px;
+		   }
+		   
+		.content4 > h1 {
+		   font-size:55px;
+		   }
+		   
+		.content5 > img {
+		   float: left;
+		    margin-right: 30px;
+		    margin-top:10px;
+		   margin-bottom:10px;
+		   }
+		   
+		.content5 > h1 {
+		   font-size:55px;
+		   }
+		   
+		.content6 > img {
+		   float: left;
+		    margin-right: 30px;
+		    margin-top:10px;
+		   margin-bottom:10px;
+		   }
+		   
+		.content6 > h1 {
+		   font-size:55px;
+		   }
+		.content1 > p, i {
+		   font-size:40px;
+		   }   
+		   
+		img {
+	   float:left;
+	    margin-right: 30px;
+		border: 1px solid black;
+		
+	   }
+	   
+	 	.footer  {
+	     height:auto;
+	     margin-left:355px;
+	     width:600px;
+	     margin-bottom:10px
+	    }	 
+		   
+		
+	   }
+		
+</style>
+ <div class=" container ">
+       
+	<div class="box left-sidebar">  
+	    {% if user.is_authenticated %}
+	    <div class="box welcome"> 
+		    <h2>Welcome,</h2>
+		   <h4 style="color:green; margin-left:15px;"> 
+          <article class="media content-section">
+          <img class="rounded-circle article-img pp" src="{{  user.profile.photo.url }}"/> 
+             <b><i><h4 style="margin-left:1px; font-size:35px; ">{{user.first_name}}</h4></i></b>
+		  </h4>
+		  <a href="{% url "logout" %}" style="margin-left:15px; width:150px;" >  Logout</a>
+       
+               {% else %}
+         <h2>Welcome,</h2>
+        
+		<h4><i>Guest</i>!</h4>
+            {% endif %}
+		</div>
+		<div class="box stat"> Stat </div>
+		
+		 <div class="box most-commented-posts"> Most Commented Posts </div>
+         <div class="box latest-posts"> Latest Posts </div>
+		 
+		 <div class="box about">  
+	    <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" ><b>About-us</b></a>
+          <div class="dropdown-menu">
+           <a class="dropdown-item" href="#">History</a>
+           <a class="dropdown-item" href="#">Mission</a>
+           <a class="dropdown-item" href="#">Vision</a>
+		   <a class="dropdown-item" href="#">Staffs</a>
+          </div>
+        </li>
+		</div>
+		
+	    <div class="box contact">  
+	    <li class="nav-item dropdown ">
+         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>Contact-us</b></a>
+          <div class="dropdown-menu">
+           <a class="dropdown-item" href="#"><i class=" fa fa-user" style="margin:2px;"></i>Facebook</a>
+           <a class="dropdown-item" href="#"><i class=" fa fa-user" style="margin:2px;"></i>Twitter</a>
+           <a class="dropdown-item" href="#"><i class=" fa fa-user" style="margin:2px;"></i>Instagram</a>
+		   <a class="dropdown-item" href="#"><i class=" fa fa-user" style="margin:2px;"></i>Whatsapp</a>
+		   <a class="dropdown-item" href="#"><i class=" fa fa-user" style="margin:2px;"></i>Mobile</a>
+          </div>
+        </li>
+		</div>
+         
+		 <div class="box news-category"> 
+		    <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>News Category</b></a>
+     
+         	 <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url "politics" %}">Politics</a>
+              <a class="dropdown-item" href="{% url "business" %}">Business</a>
+              <a class="dropdown-item" href="{% url "international" %}">International</a>
+		      <a class="dropdown-item" href="{% url "crime" %}">Crime</a>
+		      <a class="dropdown-item" href="{% url "entertainment" %}">Entertainment</a>
+		      <a class="dropdown-item" href="{% url "sport" %}">Sport</a>
+		      <a class="dropdown-item" href="{% url "st" %}">Science and Tech</a>
+		      <a class="dropdown-item" href="{% url "education" %}">Education</a>
+         </div>
+         </li>  
+		</div>
+        
+		<div class="box popular-articles">  
+		  <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>Articles</b></a>
+      
+	        <div class="dropdown-menu">
+             <a class="dropdown-item" href="#">Politics</a>
+             <a class="dropdown-item" href="#">Business</a>
+             <a class="dropdown-item" href="#">International</a>
+		     <a class="dropdown-item" href="#">International</a>
+		     <a class="dropdown-item" href="#">Crime</a>
+		     <a class="dropdown-item" href="#">Entertainment</a>
+		     <a class="dropdown-item" href="#">Sport</a>
+		     <a class="dropdown-item" href="#">Science and Tech</a>
+		     <a class="dropdown-item" href="#">Education</a>
+		     <a class="dropdown-item" href="#">Lifestyle</a>
+		     <a class="dropdown-item" href="#">Food</a>
+		     <a class="dropdown-item" href="#">Culture</a>
+            </div>
+	       </li>
+		</div>
+		
+		<div class="box elearning">  
+	    <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>eLearning</b></a>
+           <div class="dropdown-menu">
+           <a class="dropdown-item" href="#">Link 1</a>
+           <a class="dropdown-item" href="#">Link 2</a>
+           <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+	   </div>
+       
+	    <div class="box gist">  
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>Gist</b></a>
+           <div class="dropdown-menu">
+           <a class="dropdown-item" href="#">Celebrity</a>
+           <a class="dropdown-item" href="#">Personalities</a>
+           <a class="dropdown-item" href="#">Events</a>
+		   <a class="dropdown-item" href="#">Campus</a>
+          </div>
+        </li>
+		</div>
+	    <div class="box review">  
+		<li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>Reviews</b></a>
+          <div class="dropdown-menu">
+           <a class="dropdown-item" href="#">Properties</a>
+           <a class="dropdown-item" href="#">Link 2</a>
+           <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+	   </div>
+		<div class="box howto">  
+		<li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><b>How To</b></a>
+          <div class="dropdown-menu">
+           <form class="form-inline pull-xs-right dropdown-item">
+            <input class="form-control" type="text" placeholder="Know how to do Anything">
+            <button class="btn btn-success" type="submit">Search</button>
+           </form>
+          </div>
+        </li>
+	   </div>
+	
+	    
+
+		
+		 <div class="box sport"> Sports 
+		  <ul>
+            <li><a style="color:  #808000;" href="">Afcon</a></li>
+            <li><a style="color:  #808000;" href="">Premier League</a></li>
+            <li><a style="color:  #808000;" href="">LA LIGA</a></li>
+            <li><a style="color:  #808000;" href="">SERIE A</a></li>
+		    <li><a style="color:  #808000;" href="">League One</a></li>
+			<li><a style="color:  #808000;" href="">Bundesliga</a></li>
+		  </ul>
+		  </div>
+		
+		
+		
+	   </div>
+	   
+	   <div class="box main-content"> 
+	   <div class="content1">
+	    <img src="bird.jpeg" alt="The road ahead"   />
+         <h1>News Title</h1>
+         <p>News Tags</p>
+         <i><p>Published date, time, and author</p></i>
+         <p>News Body</p>
+       </div>	
+
+        <div class="content2">
+	    <img src="azeez.jpg" alt="The road ahead"   />
+         <h1>News Title</h1>
+         <p>News Tags</p>
+         <i><p>Published date, time, and author</p></i>
+         <p>News Body</p>
+       </div>
+
+        <div class="content3">
+	    <img src="azeez.jpg" alt="The road ahead"   />
+         <h1>News Title</h1>
+         <p>News Tags</p>
+         <i><p>Published date, time, and author</p></i>
+         <p>News Body</p>
+       </div>
+
+        <div class="content4">
+	    <img src="azeez.jpg" alt="The road ahead"   />
+         <h1>News Title</h1>
+         <p>News Tags</p>
+         <i><p>Published date, time, and author</p></i>
+         <p>News Body</p>
+       </div>
+
+        <div class="content5">
+	    <img src="azeez.jpg" alt="The road ahead"   />
+         <h1>News Title</h1>
+         <p>News Tags</p>
+         <i><p>Published date, time, and author</p></i>
+         <p>News Body</p>
+       </div>
+
+        <div class="content6">
+	    <img src="azeez.jpg" alt="The road ahead"   />
+         <h1>News Title</h1>
+         <p>News Tags</p>
+         <i><p>Published date, time, and author</p></i>
+         <p>News Body</p>
+       </div>	   
+			
+		 
+       </div>
+	   
+       
+		 
+		
+		 
+
+       <div class="box articles"> 
+	     
+		
+		 <div class="box health-article-content">
+		   <img src="azeez.jpg" alt="The road ahead"   />
+		   <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>  
+		 </div>
+		
+		<div class="box sport-article-content"> 
+		   <img src="azeez.jpg" alt="The road ahead"   />
+		   <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>  
+		</div>
+		 
+		 <div class="box politics-article-content">
+		   <img src="azeez.jpg" alt="The road ahead"   />
+           <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>  	
+		 </div>
+		 
+		 <div class="box culture-article-content"> 
+		   <img src="azeez.jpg" alt="The road ahead"   />
+           <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>  
+		 </div>
+		 
+		 <div class="box fashion-article-content">
+		 <img src="azeez.jpg" alt="The road ahead"   />
+		   <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>
+            <p><a style="color:  #808000;" href="">Touring Diary: A sketchbook in your basket</a></p>  
+		 </div>
+	    </div>
+	   
+	    
+	   
+	   <div class="box footer"> 
+	     <a style="color: #de6581; 
+		          text-decoration: none;"
+			href="">Legal Information</a> | 
+			
+		<a style="color: #de6581; 
+		         text-decoration: none;"  
+			href="">Privacy Policy</a> |
+
+		<a style="color: #807c72;" 
+		   href="">Copyrig
+		   
+ {% endblock %}

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+{% load static %}
+{% load postman_tags %}
+{% load tailwind_tags %}
+{% load homepage_tags %}
+{% load hitcount_tags %}
+
+
+<html>
+  <head>
+   
+   {{ form.media }}
+   {% tailwind_css %}
+   {% load pwa %}
+
+    {% pwa_meta_data %}
+    <meta charset="utf-8">
+	<!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/main.js'%}"></script>
+	 <script src="{% static 'js/footer.js' %}"></script>
+	 <script src="{% static 'django-htmx.js' %}"></script>
+	 <script src="{% static 'notify/notifyX.js' %}"></script>
+	 <link rel="manifest" href="manifest.json">
+	 
+ 
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		
+   <script src="https://unpkg.com/htmx.org@1.9.2"
+               integrity="sha384-
+               L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+               crossorigin="anonymous">
+	</script>
+	
+	<style>
+     input {
+     margin-bottom:5px;
+     }
+   p{ font-family:  Tahoma, Geneva, Verdana, sans-serif; font-size:16px; font-weight:200px; line-height: 1.5; }
+    a.specialLink { color:blue}
+ a.specialLink:hover {background-color:black}
+ ul.specialLink {list-style-type:square} 
+
+	</style>
+ </head>  
+	
+<body hx-boost="true">	
+	<div class="navbar bg-neutral text-neutral-content" style="position:fixed; margin-bottom:90px; z-index: 10;">
+  <div class="navbar-start">
+    <div class="dropdown" >
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+      </div>
+      <div tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box " style="overflow-y:auto; height:500px">
+	    <div class="stats shadow" style="background-color:silver;" >
+		 <div class="stat">
+		 <ul>
+		  <li><div class="stat-title" style="color:blue">Total Posts</div></li>
+		  <div class="stat-value" style="margin-left:13px; color:black; border-bottom:1px solid grey" >{% total_posts %} </div><hr>
+		 
+		 <li><div class="stat-title" style="color:blue">Total Published Posts</div></li>
+		  <div class="stat-value" style="margin-left:13px; color:black; border-bottom:1px solid grey">{% total_published_posts %} </div><hr>
+		  
+		  <li><div class="stat-title" style="color:blue">Total Drafted Posts</div></li>
+		  <div class="stat-value" style="margin-left:13px; color:black">{% total_draft_posts %} </div>
+		  <br>
+                <li>
+				  {% get_most_commented_posts as most_commented %}
+				  <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">10 Most Discussed Posts </div>
+				  {% for post in most_commented %}
+				  <li  style="margin:4px; font-size:15px; font-family:tahoma; font-weight: 400; color:white; white-space:wrap; border-bottom:1px solid grey"><a  href="{{ post.get_absolute_url }}">{{post}}</a></li> 
+				  {% endfor %}
+				</li>
+				<br>
+				<li>
+				 <div class="stat-title" style="margin:4px; font-size:20px; font-family:tahoma; font-weight: 500; color:blue;">Contact us</div>
+				  <li style="margin:4px"><i class='fa fa-whatsapp' aria-hidden='true' style='color:green; width:25px; height:25px  '></i><span style="font-size:15px; font-family:tahoma; font-weight: 500; color:white;">08126722466</span></li>
+				  <li style="margin:4px"><i class='fa fa-envelope' aria-hidden='true' style='color:red; width:25px; height:25px  '></i><span style="font-size:15px; font-family:tahoma; font-weight: 500; color:white;" >conversenigeria24@gmail.com</span></li>
+				</li>
+			    <hr>
+				<br>
+				 
+                   <li >
+                    <details>
+                    <summary>News</summary>
+                    <ul class="p-2" style="width:250px">
+                    <li><a href="{% url 'newss:politics_post_list' %}" >Politics</a></li>
+                    <li><a href="{% url 'events:event_post_list' %}">Business & Economy</a></li>
+			        <li><a href="{% url 'crimes:crime_post_list' %}">Crime & Law</a></li>
+			        <li><a href="{% url 'entertainments:entertainment_post_list' %}"  >Entertainments</a></li>
+                    <li><a href="{% url 'internationals:international_post_list' %}">International</a></li>
+			        <li><a href="{% url 'educations:education_post_list' %}">Education</a></li>
+			        <li><a href="{% url 'sciences:st_post_list' %}">Science & Tech</a></li>
+                    <li><a href="{% url 'sports:sport_post_list' %}">Sport</a></li>
+			  
+                   </ul>
+                  </details>
+                 </li>
+		
+                 <li>
+                 <details>
+                  <summary>Gists</summary>
+                   <ul class="p-2" style="width:250px">
+                   <li><a href="{% url 'celeb:celebrity_post_list' %}">Celebrity</a></li>
+                   <li><a href="{% url 'loves:love_post_list' %}">Love & Relationship</a></li>
+			       <li><a href="{% url 'campuss:campus_post_list' %}">Campus Gists</a></li>
+			      <li><a href="{% url 'happening:happenings_post_list' %}">Happenings</a></li>
+			      <li><a href="{% url 'personalitys:personality_post_list' %}">Personality Gists</a></li>
+                 </ul>
+                </details>
+               </li>
+               <li>
+               <details>
+               <summary>Articles</summary>
+                <ul class="p-2" style="width:250px">
+                 <li><a href="{% url 'political_articles:political_post_list' %}">Political Articles</a></li>
+                 <li><a href="{% url 'business__articles:business_article_post_list' %}">Business Articles</a></li>
+			     <li><a href="{% url 'health_articles:health_post_list' %}">Health Articles</a></li>
+			     <li><a href="{% url 'sport_articles:sports_post_list' %}">Sport Articles</a></li>
+			     <li><a href="{% url 'cultures:culture_post_list' %}">Culture Articles</a></li>
+			     <li><a href="{% url 'lifestyles:lifestyle_post_list' %}">Lifestyle Articles</a></li>
+			     <li><a href="{% url 'foods:food_post_list' %}">Food & Recipe</a></li>
+			     <li><a href="{% url 'innovations:innovation_post_list' %}">Innovative Articles</a></li>
+			     <li><a href="{% url 'religions:religion_post_list' %}">Religion Articles</a></li>
+			     <li><a href="{% url 'howtos:howto_post_list' %}">Learning</a></li>   
+               </ul>
+               </details>
+             </li>
+		    <li>
+            <details>
+             <summary>Reviews</summary>
+              <ul class="p-2">
+              <li><a>Products</a></li>
+              <li><a>Organisation</a></li>
+			  <li><a>Book</a></li>
+			  <li><a>Movie</a></li>
+			  <li><a>Phone</a></li>
+			  <li><a>IOT devices</a></li>
+			  <li><a>Automobile</a></li>
+            </ul>
+          </details>
+        </li>
+        <hr>
+		<br>
+	
+		<li>
+         <div class="stat">		
+		 <form action="{% url 'subscribe' %}" method="post">
+		  <div class="row d-flex justify-content-center">
+		   {% csrf_token %}
+		    <div class="col-auto">
+			 <p class="pt-2">Subscribe for daily Posts</p>
+			</div>
+			
+			
+			 <input id="name" name="name" class="input input-bordered input-primary w-full max-w-xs" placeholder="Your Name" style="width:200px"/><span> <input id="email" name="email" type="email" class="input input-bordered input-primary w-full max-w-xs" placeholder="Email address" style="width:200px"/></span>
+		
+			
+			
+			
+			<div class="col-auto">
+			 <button type="submit" class="btn btncolor">
+			  Submit
+			 </button>
+			</div>
+		   </div>
+		  </form>
+         </div>
+        </li>  
+		
+		</ul>
+		 </div>
+		</div>
+
+
+    </div>
+	</div>
+    <a  href="{% url "homepage" %}" hx-boost="true" class="btn btn-ghost text-xl" style="margin-top:-10px">ConverseForum<span><br><p style="margin-left:-70px; font-size:10px">we do it in group</p></span></a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+     <ul class="menu menu-horizontal px-1">
+        <li >
+          <details>
+            <summary>News</summary>
+            <ul class="p-2" style="width:250px">
+              <li><a href="{% url 'newss:politics_post_list' %}" >Politics</a></li>
+              <li><a href="{% url 'events:event_post_list' %}">Business & Economy</a></li>
+			  <li><a href="{% url 'crimes:crime_post_list' %}">Crime & Law</a></li>
+			   <li><a href="{% url 'entertainments:entertainment_post_list' %}"  >Entertainments</a></li>
+              <li><a href="{% url 'internationals:international_post_list' %}">International</a></li>
+			  <li><a href="{% url 'educations:education_post_list' %}">Education</a></li>
+			  <li><a href="{% url 'sciences:st_post_list' %}">Science & Tech</a></li>
+              <li><a href="{% url 'sports:sport_post_list' %}">Sport</a></li>
+			  
+            </ul>
+          </details>
+        </li>
+		
+        <li>
+          <details>
+            <summary>Gists</summary>
+            <ul class="p-2" style="width:250px">
+              <li><a href="{% url 'celeb:celebrity_post_list' %}">Celebrity</a></li>
+              <li><a href="{% url 'loves:love_post_list' %}">Love & Relationship</a></li>
+			  <li><a href="{% url 'campuss:campus_post_list' %}">Campus Gists</a></li>
+			  <li><a href="{% url 'happening:happenings_post_list' %}">Happenings</a></li>
+			  <li><a href="{% url 'personalitys:personality_post_list' %}">Personality Gists</a></li>
+			   
+			  
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Articles</summary>
+             <ul class="p-2" style="width:250px">
+              <li><a href="{% url 'political_articles:political_post_list' %}">Political Articles</a></li>
+              <li><a href="{% url 'business__articles:business_article_post_list' %}">Business Articles</a></li>
+			  <li><a href="{% url 'health_articles:health_post_list' %}">Health Articles</a></li>
+			  <li><a href="{% url 'sport_articles:sports_post_list' %}">Sport Articles</a></li>
+			  <li><a href="{% url 'cultures:culture_post_list' %}">Culture Articles</a></li>
+			  <li><a href="{% url 'lifestyles:lifestyle_post_list' %}">Lifestyle Articles</a></li>
+			   <li><a href="{% url 'foods:food_post_list' %}">Food & Recipe</a></li>
+			  <li><a href="{% url 'innovations:innovation_post_list' %}">Innovative Articles</a></li>
+			  <li><a href="{% url 'religions:religion_post_list' %}">Religion Articles</a></li>
+			  <li><a href="{% url 'howtos:howto_post_list' %}">Learning</a></li> 
+			  
+            </ul>
+          </details>
+        </li>
+		<li>
+          <details>
+            <summary>Reviews</summary>
+            <ul class="p-2">
+              <li><a>Products</a></li>
+              <li><a>Organisation</a></li>
+			  <li><a>Book</a></li>
+			  <li><a>Movie</a></li>
+			  <li><a>Phone</a></li>
+			  <li><a>IOT devices</a></li>
+			  <li><a>Automobile</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+  </div>
+  <div class="navbar-end">
+    <a class="btn btn-ghost btn-circle" href="/search/" hx-boost="true">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+    </a>
+	
+	<div class="dropdown dropdown-end indicator">
+	 {% if user.is_authenticated %}
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img alt="" src="{{  user.profile.photo.url }}" />
+        </div>
+      </div>
+	 <span class=" indicator-item" style="position:absolute; margin-left:-9px; margin-top:-6px; font-size:15px; background-color:white;  color:black; border-radius:50%; width:17px; height:20px ">
+	    {% postman_unread as unread_count %}
+       <span style="margin:5px">{% if unread_count %} <strong>{{ unread_count }}</strong>{% endif %}</span>
+	 </span>
+	   
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <b><a href="{% url "my_activities" %}" hx-boost="true" class="justify-between" style="color:blue">
+            Profile
+            <span class="badge">New</span>
+          </a></b>
+        </li>
+		<li><b><a href="{% url 'postman:inbox' %}"  style="color:blue" hx-boost="true"   >Inbox{% if unread_count %} <strong>({{ unread_count }})</strong>{% endif %}</a></b></li>
+		<li><b><a href="{% url "change_password" %}" hx-boost="true" style="color:blue">Change password</a></b></li>
+	<li><details>
+	  <summary style="color:blue"><b>Start posting</b></summary>
+	  <ul>
+		<li><details >
+          <summary style="color:blue">Create News</summary>
+	    
+        <ul>
+         <li><a href="{% url "newss:create_post" %}" hx-boost="true" style="color:black">Politics</a></li>
+         <li><a href="{% url "events:create_post" %}" hx-boost="true" style="color:black">Business News</a></li>
+		  <li><a href="{% url "internationals:create_post" %}" hx-boost="true" style="color:black">International News</a></li>
+         <li><a href="{% url "crimes:create_post" %}" hx-boost="true" style="color:black">Crime News</a></li>
+		  <li><a href="{% url "entertainments:create_post" %}" hx-boost="true" style="color:black">Entertainment</a></li>
+         <li><a href="{% url "sports:create_post" %}" hx-boost="true" style="color:black">Sport News</a></li>
+		  <li><a href="{% url "sciences:create_post" %}" hx-boost="true" style="color:black">Science and Tech</a></li>
+         <li><a href="{% url "educations:create_post" %}" hx-boost="true" style="color:black">Educational News</a></li>
+        
+          
+      </ul>
+	  
+    </details>
+	</li>
+	
+	<li><details >
+          <summary style="color:blue">Create Article</summary>
+	    
+        <ul>
+         <li><a href="{% url "political_articles:create_post" %}" hx-boost="true" style="color:black">Political article</a></li>
+         <li><a href="{% url "business__articles:create_post" %}" hx-boost="true" style="color:black">Business article</a></li>
+		  <li><a href="{% url "health_articles:create_post" %}" hx-boost="true" style="color:black">Health article</a></li>
+         <li><a href="{% url "howtos:create_post" %}" hx-boost="true" style="color:black">How-to</a></li>
+		  <li><a href="{% url "sport_articles:create_post" %}" hx-boost="true" style="color:black">Sport article</a></li>
+         <li><a href="{% url "innovations:create_post" %}" hx-boost="true" style="color:black">Innovative article</a></li>
+		  <li><a href="{% url "lifestyles:create_post" %}" hx-boost="true" style="color:black">Lifestyle</a></li>
+         <li><a href="{% url "foods:create_post" %}" hx-boost="true" style="color:black">Food</a></li>
+		  <li><a href="{% url "cultures:create_post" %}" hx-boost="true" style="color:black">Culture</a></li>
+		  <li><a href="{% url "religions:create_post" %}" hx-boost="true" style="color:black">Religion</a></li>
+         
+        
+          
+      </ul>
+	  
+    </details>
+	</li>
+	
+	<li><details >
+          <summary style="color:blue">Post Gist</summary>
+	    
+        <ul>
+         <li><a href="{% url "celeb:create_post" %}" hx-boost="true" style="color:black">Celebrity gist</a></li>
+         <li><a href="{% url "loves:create_post" %}" hx-boost="true" style="color:black">Love & Relationship</a></li>
+		  <li><a href="{% url "personalitys:create_post" %}" hx-boost="true" style="color:black">Personalities</a></li>
+		  <li><a href="{% url "entertainments:create_post" %}" hx-boost="true" style="color:black">Entertainment</a></li>
+         <li><a href="{% url "campuss:create_post" %}" hx-boost="true" style="color:black">Campus</a></li>
+		  <li><a href="{% url "happening:create_post" %}" hx-boost="true" style="color:black">The citizens</a></li>
+          
+      </ul>
+	  
+    </details>
+	</li>
+	
+	<li><details >
+          <summary style="color:blue">Post Review</summary>
+	    
+        <ul>
+         <li><a href="" hx-boost="true" style="color:black">Product</a></li>
+         <li><a href="" hx-boost="true" style="color:black">Organization</a></li>
+		  <li><a href="" hx-boost="true" style="color:black">Book</a></li>
+         <li><a href="}" hx-boost="true" style="color:black">Movie</a></li>
+		  <li><a href="" hx-boost="true" style="color:black">Phone</a></li>
+         <li><a href="" hx-boost="true" style="color:black">IOT devices</a></li>
+		  <li><a href="" hx-boost="true" style="color:black">Automobile</a></li>
+         <li><a href="" hx-boost="true" style="color:black"></a></li>
+        
+          
+      </ul>
+	  </ul>
+    </details>
+	</li>
+	</li></details>	
+	 {% if user.is_staff %}
+	<li><b><a href="{% url 'newsletter' %}" hx-boost="true" style="color:blue">Daily Digest</a></b></li>
+	<li><b><a href="/sTaFfOnLy" hx-boost="true" style="color:blue">Staff Only</a></b></li>
+	{% else %}
+	<span></span>
+	{% endif %}
+     <li><b><a href="{% url 'logout' %}?next={{request.path}}" hx-boost="true" style="color:blue">Logout</a></b></li>
+      </ul>
+	  {% else %}
+	  <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img alt="" src="mediafiles/avatar.png" />
+        </div>
+      </div>
+	 
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <b><a href="{% url "login" %}?next={{request.path}}" class="justify-between" style="color:blue" hx-boost="true">
+            Login
+            <span class="badge">New</span>
+          </a></b>
+        </li>
+        <li><b><a href="{% url "register" %}" hx-boost="true" style="color:blue">Sign up</a></b></li>
+        
+      </ul>
+	  {% endif %}
+	  
+    </div>
+  </div>
+</div>
+<br><br><br>
+
+
+	{% include 'homepage/includes/messaging.html' %} 
+
+
+
+{% block content %}
+{% endblock %}
+ {% pwa_meta_script %}
+  {% block postman_menu %}
+  {% endblock %}
+{% include 'homepage/includes/footer.html' %}
+
+</body>
