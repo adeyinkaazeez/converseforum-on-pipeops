@@ -30,7 +30,7 @@ EXPOSE $PORT
 
 # Use gunicorn on the given port
 CMD gunicorn --bind :$PORT --workers 2 converse.wsgi
-=======
+
 # Set the base image to Python 3.9
 FROM python:3.11.0
 # Set environment variables
@@ -49,4 +49,4 @@ RUN python manage.py migrate
 EXPOSE 8000
 # Start the Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
->>>>>>> f5a1154 (first amended commit)
+
