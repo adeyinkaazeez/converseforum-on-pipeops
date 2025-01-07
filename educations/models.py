@@ -57,10 +57,10 @@ class Educations(models.Model):
     news_image_four = models.ImageField(default=' ',  blank=True, upload_to='photo-news')
     
     caption = models.CharField(max_length=250, blank=True ) 
-    caption_two = models.TextField(max_lenght=10000, blank=True ) 
-    caption_three = models.TextField(max_lenght=10000, blank=True) 
-    caption_four = models.TextField(max_lenght=10000, blank=True )   
-    caption_four = models.CharField(max_lenght=10000, blank=True)  
+    caption_two = models.TextField(max_length=10000, blank=True ) 
+    caption_three = models.TextField(max_length=10000, blank=True) 
+    caption_four = models.TextField(max_length=10000, blank=True )   
+    caption_four = models.CharField(max_length=10000, blank=True)  
     likes = models.ManyToManyField(User, related_name='liked_education_post', blank=True)
     total_likes = models.PositiveIntegerField(default=0)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', 
