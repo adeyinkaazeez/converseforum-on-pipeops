@@ -52,7 +52,8 @@ class Campuss(models.Model):
     status = models.CharField(max_length=2,                     
                                 choices=Status.choices,                     
                                 default=Status.DRAFT)
-   
+    news_image = models.ImageField(default=' ',
+                             upload_to='photo-news')
     news_image_two = models.ImageField(default=' ', blank=True, upload_to='photo-news')
     news_image_three = models.ImageField(default=' ', blank=True, upload_to='photo-news')
     news_image_four = models.ImageField(default=' ',  blank=True, upload_to='photo-news')
